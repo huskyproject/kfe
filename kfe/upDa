@@ -1,0 +1,4 @@
+kfetoplevel.cpp:    attrbar->setBarPos(KToolBar::Left);
+kfetoplevel.cpp:        debug("vor attrbar->upDate()");
+kfetoplevel.cpp:        attrbar->upDate(smapi->getCurMsg()->getAttr());
+kfetoplevel.cpp:        debug("nach attrbar->upDate()");

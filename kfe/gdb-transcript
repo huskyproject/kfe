@@ -1,0 +1,43 @@
+set prompt (kdbg)
+GNU gdb 4.17.m68k.objc.threads.hwwp.fpu.gnat
+Copyright 1998 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i486-pc-linux-gnu".
+(gdb) (kdbg)set confirm off
+(kdbg)tty /dev/ttyp1
+(kdbg)file kfe
+(kdbg)info line main
+No line number information available for address 0x8056a70 <main>
+(kdbg)
+gdb exited
+set prompt (kdbg)
+GNU gdb 4.17.m68k.objc.threads.hwwp.fpu.gnat
+Copyright 1998 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i486-pc-linux-gnu".
+(gdb) (kdbg)set confirm off
+(kdbg)tty /dev/ttyp1
+(kdbg)file /export/home/f/fido/kfe/kfe/kfe
+(kdbg)info line main
+No line number information available for address 0x8056a70 <main>
+(kdbg)run 
+
+Program received signal SIGSEGV, Segmentation fault.
+0x4010a5a0 in KTabListBox::writeConfig ()
+(kdbg)bt
+#0  0x4010a5a0 in KTabListBox::writeConfig ()
+#1  0x80525ab in areaListWidget::~areaListWidget (this=0x8098708, __in_chrg=3)
+#2  0x8054582 in KkfeTopLevel::~KkfeTopLevel (this=0x807f720, __in_chrg=3)
+#3  0x402d7501 in QWidget::destroyMapper ()
+#4  0x4029e29b in QApplication::~QApplication ()
+#5  0x401adc26 in KApplication::~KApplication ()
+#6  0x8056bc5 in main (argc=1, argv=0xbffffcc4)
+(kdbg)info locals
+No symbol table info available.
+(kdbg)
