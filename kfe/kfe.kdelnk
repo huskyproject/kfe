@@ -1,0 +1,10 @@
+# KDE Config File 
+[KDE Desktop Entry]
+Name=Kde Fido Editor
+Exec=kfe
+Icon=kfe.xpm
+Type=Application
+DocPath=kfe/kfe.html
+Comment=
+Terminal=0
+MiniIcon=kfe.xpm
