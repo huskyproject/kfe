@@ -4,21 +4,22 @@
 
 #include <stdio.h>
 
-#include "kmsgbox.h"
-#include "arealistwidget.h"
-#include "ktablistbox.h"
+#include <kmsgbox.h>
+#include <arealistwidget.h>
+#include <ktablistbox.h>
+
+#include "ksmapi.h"
+
 
 // *************************************************************
-// class msgArea
+// class areaListWidget
 
-areaListWidget::areaListWidget(QWidget *parent, const char *name)
-    : KTabListBox(parent, name, 3)
+areaListWidget::areaListWidget(QWidget *parent, Ksmapi* newSmapi = 0)
+    : KTabListBox(parent, "areaListWidget", 3)
 {
-    // setup the Arealist
-    arealist.append(new f_area("linux.ger"));
-    arealist.append(new f_area("linux"));
-    arealist.append(new f_area("linux.develop.ger"));
-    arealist.append(new f_area("spiele.ger"));
+    debug("areaListWidget::areaListWidget");
+
+    smapi = newSmapi;
 
     // setup the Widget
     setMinimumSize(180, 100);
@@ -27,31 +28,79 @@ areaListWidget::areaListWidget(QWidget *parent, const char *name)
     setColumn(1, "new", 40);
     setColumn(2, "total", 40);
 
-    // insert Areas in ListBox
-    bool first = TRUE;
-    
-    f_area* foo;
-    for(foo = arealist.first(); foo != 0; foo = arealist.next()) {
-        printf("start arealistwidget\n");
-        QString hdr(256);
-        hdr.sprintf("%s\n%d\n%d", (const char*)foo->getName(), foo->getNewMsgs(), foo->getMsgs());
-        insertItem(hdr);
-        if (first) {
-            printf("first\n");
-            emit newSelection(foo);
-            first = FALSE;
-        }
-    }
+    readConfig();
     resize(size());
-    setAutoUpdate(TRUE);
+
+//    connect(this, SIGNAL(headerClicked(int)), this, SLOT(reSort(int)));
 }
+
 
 
 areaListWidget::~areaListWidget()
 {
-    ;
+    writeConfig();
 }
 
 
-//    f_area* sel = arealist.at(item);
-//    emit newSelection(sel);
+
+void areaListWidget::updateContent()
+{
+    debug("areaListWidget::updateContent()");
+    QString hdr(256);
+
+    smapi->rescanAreas();
+
+    int curarea = smapi->getCurAreaNum();
+    debug("current area vor rescan:%d", curarea);
+
+    setAutoUpdate(FALSE);
+    clear();
+    
+    smapiArea* area;
+    debug("---------");
+    debug("vor for()");
+    for(area = smapi->getFirstArea(); area != 0; area = smapi->getNextArea()) {
+        debug("in for()");
+        CHECK_PTR(area->getName());
+        debug("Areaname: %s, size: %d", (const char*)area->getName(), area->getAreaSize());
+//				CHECK_PTR(area->getAreaSize());
+				CHECK_PTR(area->getLastRead());
+        hdr.sprintf("%s\n%d\n%d",
+        					  (const char*)area->getName(),
+        					  area->getAreaSize() - area->getLastRead(),
+        					  area->getAreaSize());
+        insertItem(hdr);
+    }
+    debug("nach for()");
+    setCurrentItem(curarea);
+    smapi->setCurAreaNum(curarea);
+    setAutoUpdate(TRUE);
+    debug("/areaListWidget::updateContent()");
+};
+
+
+
+void areaListWidget::reSort(int sortorder)
+{
+    debug("areaListWidget::reSort");
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

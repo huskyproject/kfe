@@ -2,31 +2,34 @@
  *
  */
 
-#ifndef _AREALISTWIDGET_H
-#define _AREALISTWIDGET_H
+#ifndef AREALISTWIDGET_H
+#define AREALISTWIDGET_H
 
 #include <ktablistbox.h>
 #include <qlist.h>
 #include <qstring.h>
 
-#include "f_area.h"
-#include "msgwidget.h"
-
+#include "ksmapi.h"
 
 class areaListWidget : public KTabListBox
 {
     Q_OBJECT
 
+private:
+    Ksmapi* smapi;
+    
 public:
-    areaListWidget(QWidget *parent=0, const char *name=0 );
+    areaListWidget(QWidget* parent = 0, Ksmapi* newSmapi = 0);
     ~areaListWidget();
 
-signals:
-    void newSelection(f_area*);
-    
-protected:
-    QList<f_area> arealist;
+
+public slots:
+    void updateContent();
+    void reSort(int sortorder);
 };
 
 #endif
+
+
+
 

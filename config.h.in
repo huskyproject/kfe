@@ -3,42 +3,18 @@
 /* Define if the C++ compiler supports BOOL */
 #undef HAVE_BOOL
 
-#undef VERSION
-
-#undef PACKAGE
-
 /* defines which to take for ksize_t */
 #undef ksize_t
 
 /* Define to 1 if NLS is requested.  */
 #undef ENABLE_NLS
 
-/* *** change this later */
-#define UNIX
+/* Name of package */
+#undef PACKAGE
 
-/* Define if you have the <api_brow.h> header file.  */
-#undef HAVE_API_BROW_H
+/* Version number of package */
+#undef VERSION
 
-/* Define if you have the <common.h> header file.  */
-#undef HAVE_COMMON_H
-
-/* Define if you have the <compiler.h> header file.  */
-#undef HAVE_COMPILER_H
-
-/* Define if you have the <stamp.h> header file.  */
-#undef HAVE_STAMP_H
-
-/* Define if you have the <typedefs.h> header file.  */
-#undef HAVE_TYPEDEFS_H
-
-/* Define if you have the <typesize.h> header file.  */
-#undef HAVE_TYPESIZE_H
-
-/* Define if you have the fidoconfig library (-lfidoconfig).  */
-#undef HAVE_LIBFIDOCONFIG
-
-/* Define if you have the smapilnx library (-lsmapilnx).  */
-#undef HAVE_LIBSMAPILNX
 
 #ifndef HAVE_BOOL
 #define HAVE_BOOL

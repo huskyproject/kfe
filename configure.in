@@ -1,3 +1,4 @@
+
 dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
@@ -7,82 +8,12 @@ dnl without this order in this file, automake will be confused!
 dnl the argument 
 AM_CONFIG_HEADER(config.h)
 
-dnl inits some variables needed by automake's Makefiles.
-dnl add here the package name and it's version number. It will
-dnl be defined in config.h and in the Makefiles
-AM_INIT_AUTOMAKE(kfe, 0.1)
+dnl insert here your program name and version number
+KDE_DO_IT_ALL(kfe,0.1.0)
 
-dnl sets the prefix to $KDEDIR or /usr/local/kde (if no $KDEDIR
-dnl set) for the case, that there is no --prefix
-AC_PREFIX_DEFAULT({KDEDIR:-/usr/local/kde})
-
-dnl the first KDE macro to check for the Compilers needed. The
-dnl default autoconf macro had not the best support for C++ compilers.
-AC_CHECK_COMPILERS
-
-dnl don't build libraries. This mainly disables the configure switches
-dnl --enable-shared and --enable-static, since they don't make that much
-dnl sense then :)
-AM_DISABLE_LIBRARIES
-
-dnl let libtool configure. Checks for the way to handle your compiler
-dnl to do some magic 
-KDE_PROG_LIBTOOL
-
-dnl adds --disable-nls to not install the .gmo files out of po. If you
-dnl don't have i18n support, you may want to remove this, but leaving it
-dnl here doesn't hurt
-AM_KDE_WITH_NLS
-
-dnl definitly the biggest macro. Checks for X, qt, moc, KDE and the
-dnl correct paths to install to. This macro adds about 1700 lines to
-dnl your configure, so be aware not to remove it!
-AC_PATH_KDE    
-
-dnl in this space add everything you want to check for;
+dnl in this space add everything you want to check for
 dnl examples are specific headers, libraries, etc.
 dnl everything to compile and run a KDE program is already checked
 
-
-dnl here comes the check for husky specific libs'n'header
-dnl here is still al lot of work required to reduce the
-dnl including of such a lot file for smapi and fidoconfig
-dnl msgapi.h and fidoconfig.h ought to be enough
-
-dnl *** check for the os instead of assuming UNIX
-AC_DEFINE(UNIX)
-
-AC_CHECK_HEADERS(compiler.h typedefs.h stamp.h api_brow.h, ,
-[echo "copy the header file from smapi to /usr/include or /usr/local/include"
-AC_MSG_ERROR([a required header file for smapi not found])
-])
-
-AC_CHECK_HEADER(msgapi.h, ,
-[echo "copy msgapi.h from smapi to /usr/include or /usr/local/include"
-AC_MSG_ERROR([msgapi.h for smapi not found])
-])
-
-AC_CHECK_HEADERS(typesize.h common.h, ,
-[echo "copy typesize.h from fidoconfig src dir to /usr/include"
-echo "or /usr/local/include"
-AC_MSG_ERROR([typesize.h for fidoconfig not found])
-])
-
-AC_CHECK_LIB(smapilnx, SquishOpenArea, ,
-[AC_MSG_ERROR([libsmapilnx not found])
-])
-
-AC_CHECK_LIB(theBackYard, PrettyGirls, echo "well done",
-[AC_MSG_WARN([yee-ha, too bad :-(])
-])
-
-AC_CHECK_LIB(fidoconfig, existAddr, , 
-[AC_MSG_ERROR([libfidoconfig not found])
-], -lsmapilnx)
-
 dnl add here all your Makefiles. This are created by configure
-AC_OUTPUT(Makefile 
-	kfe/Makefile 
-        pics/Makefile 
-        pics/mini/Makefile )
-
+AC_OUTPUT(Makefile kfe/Makefile kfe/docs/Makefile kfe/docs/en/Makefile po/Makefile )

@@ -2,49 +2,36 @@
  *   kfe - a squish base message editor
  *   Copyright (C) 1998  Michael Espey
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program; if not, write to the Free Software
- *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
  */
 
 
 #include <stdio.h>
 
+#include <ktablistbox.h>
+#include <kprogress.h>
 #include "msglistwidget.h"
-#include "arealistwidget.h"
-#include "ktablistbox.h"
-#include "kprogress.h"
 
 
 // *************************************************************
 // class msgList
 
 
-msgListWidget::msgListWidget(QWidget *parent)
-    : KTabListBox(parent, 0, 6)
+msgListWidget::msgListWidget(QWidget *parent, Ksmapi* newSmapi = 0)
+    : KTabListBox(parent, 0, 7)
 {
+    smapi = newSmapi;
+
     setMinimumSize(400, 100);
-
-    setColumn(0, "nr", 40);
-    setColumn(1, "from", 170);
-    setColumn(2, "to", 170);
-    setColumn(3, "topic", 200);
-    setColumn(4, "written", 40);
-    setColumn(5, "received", 40);
-
+    setColumn(0, 0, 20);
+    setColumn(1, "nr", 40);
+    setColumn(2, "from", 170);
+    setColumn(3, "to", 170);
+    setColumn(4, "subject", 200);
+    setColumn(5, "written", 40);
+    setColumn(6, "received", 40);
     resize(size());
 }
+
 
 
 msgListWidget::~msgListWidget()
@@ -53,53 +40,47 @@ msgListWidget::~msgListWidget()
 }
 
 
-void msgListWidget::rescan(f_area *area)
+
+void msgListWidget::rescan()
 {
-    printf("start rescan\n");
-    
-    if (area) {
-        hide();
-        printf("area != NULL\n");
-        int i = 1;
-        int highestMsg  = area->getMsgs();
+    QString hdr(256);
 
-        KProgress* prog = new KProgress(i, highestMsg, i, KProgress::Horizontal);
+    clear();
+    setAutoUpdate(FALSE);
+    smapiMsg* msg;
 
-        prog->resize(400,40);
-        prog->show();
-
-        printf("high: %d", highestMsg);
-        clear();
-        f_message* foo;
-        QString hdr(256);
-        while (i <= highestMsg) {
-            foo = new f_message(area, i++);
-//            msglist.append(foo);
-//            hdr.sprintf("%d\n%s\n%s\n%s", i, (const char*)foo->getFrom(), (const char*)foo->getTo(), (const char*)foo->getSubject());
-//            insertItem(hdr);
-            prog->advance(1);
+    smapi->rescanMsgs();
+    int i = 0; // *** check for real msg num instead
+    // *** check for null pointer here, may become a bug
+    if (smapi->getCurArea() !=  0) {
+    		debug("beim scannen der msgs");
+    		debug("area: %s", (const char*)smapi->getCurArea()->getName());
+        for(msg = smapi->getFirstMsg(); msg != 0; msg = smapi->getNextMsg()) {
+            debug("in for beim scannen");
+        		if (msg->isUnread()) {
+		            hdr.sprintf("%d\n%d\n%s\n%s\n%s", 1, ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());
+		        } else {
+						    hdr.sprintf("%d\n%d\n%s\n%s\n%s", 0, ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());		
+						}
+						debug("insertItem(hdr);");
+            insertItem(hdr);
+            if (msg->getTo().contains("Michael Espey") > 0) {
+                changeItemColor(QColor(0,0,255));
+            }
+            //else
+            if (msg->getFrom().contains("Michael Espey") > 0) {
+                changeItemColor(QColor(0,255,0));
+            }
         }
-        prog->hide();
-        delete prog;
-        show();
     } else {
-        printf("Could not open %s", "echo->filename");
+    		debug("no current Area");
     }
+    setAutoUpdate(TRUE);
+    repaint();
 }
 
 
-f_message* msgListWidget::getNext()
-{
-    return msglist.next();
-}
 
 
-f_message* msgListWidget::getPrev()
-{
-    return msglist.prev();
-}
 
-
-//    f_message* sel = msglist.at(item);
-//    emit newSelection(sel);
 

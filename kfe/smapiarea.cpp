@@ -2,74 +2,41 @@
 #include "smapiarea.h"
 
 
-smapiArea::smapiArea(char* newname, char* newpath, word mode, word type)
+smapiArea::smapiArea(char* newname, char* newpath, word mode, word type, address* newareaaddr)
 {
-    name = newname;
-    path = newpath;
-    
-    char* foo = (char*)malloc(255); // *** remove this, use QString. somehow
+		debug("smapiArea::smapiArea");
+
+    name.sprintf(newname);
+    path.sprintf(newpath);
+    char* foo = (char*) malloc(255); // *** remove this, use QString. somehow
     strcpy(foo, path);
     
     harea = MsgOpenArea((unsigned char*)foo, mode, type);
-    
-    //    printf("msgapierr:%d\n", msgapierr); // *** make this nice
-    
-    if (harea) {
-        // store the info
-        msgs = (int)MsgNumMsg(harea);
-        curmsg = (int)MsgCurMsg(harea);
-        printf("Num: %d Cur: %d\n", msgs, curmsg);
-        newmsgs = (msgs - curmsg);
+    if (harea != 0) {
+    		debug("area open");
+        areaaddress = newareaaddr;
     } else {
-        printf("fehler beim oeffnen: \n");
+	    	debug("area: %s", foo);
+    		fatal("msgapierr:%d", msgapierr); // *** make this nice
+				// #define MERR_NONE   0           /* No error  */
+				//#define MERR_BADH   1           /* Invalid handle passed to function */
+				//#define MERR_BADF   2           /* Invalid or corrupted file */
+				//#define MERR_NOMEM  3           /* Not enough memory for specified operation */
+				//#define MERR_NODS   4           /* Maybe not enough disk space for operation */
+				//#define MERR_NOENT  5           /* File/message does not exist */
+				//#define MERR_BADA   6           /* Bad argument passed to msgapi function */
+				//#define MERR_EOPEN  7           /* Couldn't close - messages still open */
     }
 }
+
 
 
 smapiArea::~smapiArea()
 {
-    printf("smapiArea::~smapiArea()\n");
-    smapiMsg* msg;
-    for (msg = msgList.first(); msg != 0; msg = msgList.next()) {
-        printf ("closing Message");
-        delete msg;
-    }
     MsgCloseArea(harea);
 }
 
 
-void smapiArea::rescanMsgs()
-{
-    printf("smapiArea::rescanMsgs\n");
-
-    if (harea != NULL) {
-        printf("area != NULL\n");
-
-        int i = 1;
-        KProgress* prog = new KProgress(i, msgs, i, KProgress::Horizontal);
-        prog->resize(400,40);
-        prog->show();
-
-        printf("high: %d\n", msgs);
-
-        // Delete old entries in List *** move this to msglistwidget
-
-        smapiMsg* foo;
-        QString hdr(256);
-
-        msgList.clear();
-        while (i <= msgs) {
-            foo = new smapiMsg(harea, MOPEN_READ, (dword)i++);
-            msgList.append(foo);
-            prog->advance(1);
-        }
-
-        prog->hide();
-        delete prog;
-    } else {
-        printf("Could not open %s", "echo->filename");
-    }
-}
 
 
 QString smapiArea::getName()
@@ -84,58 +51,65 @@ QString smapiArea::getPath()
 }
 
 
-int smapiArea::getMsgNum()
+
+UMSGID smapiArea::msgNum2UmsgId(int num)
 {
-    return msgs;
+    debug("UMSGID smapiArea::MsgNum2UmsgId(int num):%d", num);
+    return MsgMsgnToUid(harea, (dword)num);
 }
 
 
-int smapiArea::getCurMsgNum()
+
+int smapiArea::getLastRead()
 {
-    return curmsg;
+    return lastread;
 }
 
 
-int smapiArea::getNewMsgNum()
+
+int smapiArea::getAreaSize()
 {
-    return newmsgs;
+		if (MsgGetNumMsg(harea) != (dword)-1) {
+		    debug("MsgGetMsgNum: %d",(int)MsgGetNumMsg(harea));
+				return (int)MsgGetNumMsg(harea);
+		} else {
+				return 0;
+		}
 }
 
 
-smapiMsg* smapiArea::getCurMsg()
+
+address *smapiArea::getAddress()
 {
-    return msgList.current();
+    return areaaddress;
 }
 
 
-smapiMsg* smapiArea::setCurMsg(int newMsgNum)
+
+HAREA smapiArea::getHAREA()
 {
-    return msgList.at(newMsgNum);
-    
+    return harea;
 }
 
 
-smapiMsg* smapiArea::getFirstMsg()
+void smapiArea::setLastRead(UMSGID newlastread)
 {
-    return msgList.first();
+    lastread = newlastread;
 }
 
 
-smapiMsg* smapiArea::getNextMsg()
-{
-    return msgList.next();
-}
 
 
-smapiMsg* smapiArea::getPrevMsg()
-{
-    return msgList.prev();
-}
 
 
-smapiMsg* smapiArea::getLastMsg()
-{
-    return msgList.last();
-}
+
+
+
+
+
+
+
+
+
 
 

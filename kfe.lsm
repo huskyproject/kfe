@@ -1,0 +1,14 @@
+Begin3
+Title:          kfe 
+Version:        0.0.1
+Entered-date:   99.03.13
+Description:    A Squish Style Messagebase Editor
+Keywords:       KDE, X11, Qt, Fido, Squish
+Author:         Michael Espey <tracer@camouflage.hh.uunet.de> 
+Maintained-by:  Michael Espey <tracer@camouflage.hh.uunet.de> 
+Primary-site:   	        
+Home-page:      http:// 
+Original-site:  
+Platform:       Linux and other Unices, needs Qt and the KDE libs
+Copying-policy: GNU Public License
+End
