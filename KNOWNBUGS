@@ -1,0 +1,4 @@
+Right now, I don't check, if you get beyond the first message, or after the last one.
+Nasty, but as long as kfe is not even to be called functional, I can cope with this on.
+Main reason ist, that I don't get the MsgCurMsgNum right, before that, I won't work
+on the border checks for moving in the lists.

@@ -53,18 +53,10 @@ KkfeTopLevel::KkfeTopLevel()
 
 KkfeTopLevel::~KkfeTopLevel()
 {
-    printf("KkfeTopLevel::~KkfeTopLevel\n");
-
-    printf("delete msg\n");
     delete msg;
-    printf("delete alist\n");
     delete aList;
-    printf("delete mlist\n");
     delete mList;
-    printf("delete smapi\n");
     delete smapi;
-    printf("after delete smapi\n");
-
 }
 
 

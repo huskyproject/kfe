@@ -53,13 +53,14 @@ void msgListWidget::rescanContent(smapiArea* newarea)
     for(msg = newarea->getFirstMsg(); msg != 0; msg = newarea->getNextMsg()) {
         hdr.sprintf("%d\n%s\n%s\n%s", ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());
         insertItem(hdr);
+        if (msg->getTo().contains("Michael Espey") > 0) {
+            changeItemColor(QColor(0,0,255));
+        }
+        //else
         if (msg->getFrom().contains("Michael Espey") > 0) {
             changeItemColor(QColor(0,255,0));
-        };
-        printf("From %s\n", (const char*)msg->getFrom());
-
+        }
     }
-        printf("hier\n");
     setAutoUpdate(TRUE);
     repaint();
 }
@@ -70,5 +71,3 @@ void msgListWidget::msgSelected(int item)
     printf("msgListWidget::msgSelected\n");
     emit newSelection(item);
 }
-
-

@@ -1,34 +1,32 @@
 msglistwidget.moc.o: msglistwidget.moc.cpp msglistwidget.h \
- /usr/local/kde/include/ktablistbox.h /usr/local/qt/include/qdict.h \
- /usr/local/qt/include/qgdict.h /usr/local/qt/include/qcollection.h \
- /usr/local/qt/include/qglobal.h /usr/local/qt/include/qgeneric.h \
- /usr/local/qt/include/qtableview.h /usr/local/qt/include/qframe.h \
- /usr/local/qt/include/qwidget.h /usr/local/qt/include/qwindowdefs.h \
- /usr/local/qt/include/qobjectdefs.h /usr/local/qt/include/qobject.h \
- /usr/local/qt/include/qstring.h /usr/local/qt/include/qarray.h \
- /usr/local/qt/include/qgarray.h /usr/local/qt/include/qshared.h \
+ /usr/local/kde/include/ktablistbox.h /usr/include/qt/qdict.h \
+ /usr/include/qt/qgdict.h /usr/include/qt/qcollection.h \
+ /usr/include/qt/qglobal.h /usr/include/qt/qgeneric.h \
+ /usr/include/qt/qtableview.h /usr/include/qt/qframe.h \
+ /usr/include/qt/qwidget.h /usr/include/qt/qwindowdefs.h \
+ /usr/include/qt/qobjectdefs.h /usr/include/qt/qobject.h \
+ /usr/include/qt/qstring.h /usr/include/qt/qarray.h \
+ /usr/include/qt/qgarray.h /usr/include/qt/qshared.h \
  /usr/include/string.h /usr/include/features.h \
  /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
  /usr/lib/gcc-lib/i486-linux/egcs-2.91.60/include/stddef.h \
- /usr/local/qt/include/qevent.h /usr/local/qt/include/qrect.h \
- /usr/local/qt/include/qsize.h /usr/local/qt/include/qpoint.h \
- /usr/local/qt/include/qpaintdevice.h /usr/local/qt/include/qpalette.h \
- /usr/local/qt/include/qcolor.h /usr/local/qt/include/qcursor.h \
- /usr/local/qt/include/qfont.h /usr/local/qt/include/qfontmetrics.h \
- /usr/local/qt/include/qfontinfo.h /usr/local/qt/include/qpixmap.h \
+ /usr/include/qt/qevent.h /usr/include/qt/qrect.h \
+ /usr/include/qt/qsize.h /usr/include/qt/qpoint.h \
+ /usr/include/qt/qpaintdevice.h /usr/include/qt/qpalette.h \
+ /usr/include/qt/qcolor.h /usr/include/qt/qcursor.h \
+ /usr/include/qt/qfont.h /usr/include/qt/qfontmetrics.h \
+ /usr/include/qt/qfontinfo.h /usr/include/qt/qpixmap.h \
  /usr/local/kde/include/drag.h ../config.h \
- /usr/local/qt/include/qapplication.h /usr/local/qt/include/qstrlist.h \
- /usr/local/qt/include/qlist.h /usr/local/qt/include/qglist.h \
- /usr/local/qt/include/qdatastream.h /usr/local/qt/include/qiodevice.h \
+ /usr/include/qt/qapplication.h /usr/include/qt/qstrlist.h \
+ /usr/include/qt/qlist.h /usr/include/qt/qglist.h \
+ /usr/include/qt/qdatastream.h /usr/include/qt/qiodevice.h \
  /usr/include/stdlib.h /usr/include/sys/types.h \
  /usr/include/gnu/types.h /usr/include/time.h /usr/include/endian.h \
  /usr/include/bytesex.h /usr/include/sys/select.h \
- /usr/include/selectbits.h /usr/include/alloca.h f_area.h \
- /usr/local/include/msgapi.h /usr/local/include/compiler.h \
- /usr/local/include/typedefs.h /usr/local/include/stamp.h \
- /usr/local/include/api_brow.h f_message.h /usr/include/stdio.h \
- /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/selectbits.h /usr/include/alloca.h ksmapi.h smapiarea.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
  /usr/lib/gcc-lib/i486-linux/egcs-2.91.60/include/stdarg.h \
- /usr/include/stdio_lim.h /usr/local/qt/include/qmetaobject.h \
- /usr/local/qt/include/qconnection.h \
- /usr/local/qt/include/qsignalslotimp.h
+ /usr/include/stdio_lim.h /usr/local/include/msgapi.h \
+ /usr/local/include/compiler.h /usr/local/include/typedefs.h \
+ /usr/local/include/stamp.h /usr/local/include/api_brow.h smapimsg.h \
+ /usr/include/qt/qmetaobject.h /usr/include/qt/qconnection.h
