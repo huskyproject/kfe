@@ -19,11 +19,11 @@ private:
     Ksmapi* smapi;
     
 public:
-    msgWidget(QWidget *parent=0);
+    msgWidget(QWidget *parent=0, Ksmapi* newSmapi = 0);
     ~msgWidget();
 
 public slots:
-    void updateMsg(smapiMsg* newmsg);
+    void updateMsg();
 
 protected:
     void initGeometry();

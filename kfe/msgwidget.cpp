@@ -30,9 +30,10 @@
 
 #include "msgwidget.h"
 
-msgWidget::msgWidget(QWidget *parent)
+msgWidget::msgWidget(QWidget *parent, Ksmapi* newSmapi = 0)
     : QMultiLineEdit(parent, "msgWidget")
 {
+    smapi = newSmapi;
     setReadOnly(TRUE);
 }
 
@@ -43,7 +44,11 @@ msgWidget::~msgWidget()
 }
 
 
-void msgWidget::updateMsg(smapiMsg* newmsg)
+void msgWidget::updateMsg()
 {
-    setText(newmsg->getBody());
+    if (smapi->getCurArea()->getMsgNum() > 0) {
+        setText(smapi->getCurMsg()->getBody());
+    } else {
+        setText(0);
+    }
 }

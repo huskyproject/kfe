@@ -14,10 +14,12 @@
 // *************************************************************
 // class areaListWidget
 
-areaListWidget::areaListWidget(QWidget *parent)
+areaListWidget::areaListWidget(QWidget *parent, Ksmapi* newSmapi = 0)
     : KTabListBox(parent, "areaListWidget", 3)
 {
     printf("areaListWidget::areaListWidget\n");
+
+    smapi = newSmapi;
 
     // setup the Widget
     setMinimumSize(180, 100);
@@ -32,25 +34,31 @@ areaListWidget::areaListWidget(QWidget *parent)
 }
 
 
+
 areaListWidget::~areaListWidget()
 {
     ;
 }
 
 
-void areaListWidget::updateContent(Ksmapi* smapi)
+
+void areaListWidget::updateContent(int selected)
 {
+    debug("areaListWidget::updateContent()");
+    QString hdr(256);
     smapiArea* area;
 
     setAutoUpdate(FALSE);
     clear();
-    QString hdr(256);
+    
     for(area = smapi->getFirstArea(); area != 0; area = smapi->getNextArea()) {
         hdr.sprintf("%s\n%d\n%d", (const char*)area->getName(), area->getNewMsgNum(), area->getMsgNum());
         insertItem(hdr);
     }
+    setCurrentItem(selected);
     setAutoUpdate(TRUE);
 };
+
 
 
 void areaListWidget::areaSelected(int item)

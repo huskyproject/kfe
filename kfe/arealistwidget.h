@@ -15,14 +15,17 @@ class areaListWidget : public KTabListBox
 {
     Q_OBJECT
 
+private:
+    Ksmapi* smapi;
+    
 public:
-    areaListWidget(QWidget* parent = 0);
+    areaListWidget(QWidget* parent = 0, Ksmapi* newSmapi = 0);
     ~areaListWidget();
 
 
 public slots:
     void areaSelected(int);
-    void updateContent(Ksmapi* smapi);
+    void updateContent(int selected);
     
 signals:
     void newSelection(int);

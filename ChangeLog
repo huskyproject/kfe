@@ -6,6 +6,13 @@ ChangeLog for kfe - the KDE Fido Editor
 ! Bug Fix
 * Just babel of mine
 -----------------------------------------------------------
+99.03.03:
++ 	Menus and toolbar seem to work
+! 	some bug fixes (to much to list)
+* 	Well, after a long time of playing with the libs, I took the time
+	to complete the redesign of the code.
+        Next thing to come is MailComposer & Kludges
+
 99.01.16:
 +	Highlight of Msgs from/to me is done.
 	(But needs to be configured)

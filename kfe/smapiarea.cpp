@@ -18,6 +18,7 @@ smapiArea::smapiArea(char* newname, char* newpath, word mode, word type)
         // store the info
         msgs = (int)MsgNumMsg(harea);
         curmsg = (int)MsgCurMsg(harea);
+        //        printf("Num: %d Cur: %d\n", msgs, curmsg);
         newmsgs = (msgs - curmsg);
     } else {
         printf("fehler beim oeffnen: \n");
@@ -27,47 +28,11 @@ smapiArea::smapiArea(char* newname, char* newpath, word mode, word type)
 
 smapiArea::~smapiArea()
 {
-    smapiMsg* msg;
-    for (msg = msgList.first(); msg != 0; msg = msgList.next()) {
-        printf ("closing Message");
-        delete msg;
-    }
+    printf("smapiArea::~smapiArea()\n");
     MsgCloseArea(harea);
 }
 
 
-void smapiArea::rescanMsgs()
-{
-    printf("smapiArea::rescanMsgs\n");
-
-    if (harea != NULL) {
-        printf("area != NULL\n");
-
-        int i = 1;
-        KProgress* prog = new KProgress(i, msgs, i, KProgress::Horizontal);
-        prog->resize(400,40);
-        prog->show();
-
-        printf("high: %d\n", msgs);
-
-        // Delete old entries in List *** move this to msglistwidget
-
-        smapiMsg* foo;
-        QString hdr(256);
-
-        msgList.clear();
-        while (i <= msgs) {
-            foo = new smapiMsg(harea, MOPEN_READ, (dword)i++);
-            msgList.append(foo);
-            prog->advance(1);
-        }
-
-        prog->hide();
-        delete prog;
-    } else {
-        printf("Could not open %s", "echo->filename");
-    }
-}
 
 
 QString smapiArea::getName()
@@ -82,16 +47,12 @@ QString smapiArea::getPath()
 }
 
 
+
 int smapiArea::getMsgNum()
 {
     return msgs;
 }
 
-
-int smapiArea::getCurMsgNum()
-{
-    return curmsg;
-}
 
 
 int smapiArea::getNewMsgNum()
@@ -100,41 +61,8 @@ int smapiArea::getNewMsgNum()
 }
 
 
-smapiMsg* smapiArea::getCurMsg()
+
+HAREA smapiArea::getHAREA()
 {
-    return msgList.current();
+    return harea;
 }
-
-
-smapiMsg* smapiArea::setCurMsg(int newMsgNum)
-{
-    
-    return msgList.at(newMsgNum);
-    
-}
-
-
-smapiMsg* smapiArea::getFirstMsg()
-{
-    return msgList.first();
-}
-
-
-smapiMsg* smapiArea::getNextMsg()
-{
-    return msgList.next();
-}
-
-
-smapiMsg* smapiArea::getPrevMsg()
-{
-    return msgList.prev();
-}
-
-
-smapiMsg* smapiArea::getLastMsg()
-{
-    return msgList.last();
-}
-
-

@@ -8,8 +8,6 @@
 extern "C" {
 #include <msgapi.h>
 }
-
-
 #include "smapimsg.h"
 
 
@@ -19,6 +17,17 @@ public:
     smapiArea(char* newname, char* newpath, word mode, word type);
     ~smapiArea();
 
+    QString getName();
+    QString getPath();
+    int getMsgNum();
+    int getCurMsgNum();
+    int getNewMsgNum();
+    HAREA getHAREA();
+
+    enum OPENMODE {NORMAL, CREAT, CRIFNEC};
+    enum AREATYPE {SDM, SQUISH, ECHO};
+
+private:
     HAREA harea;
 
     QString name;
@@ -27,28 +36,6 @@ public:
     int msgs;
     int curmsg;
     int newmsgs;
-
-public:
-    void rescanMsgs();
-
-    QString getName();
-    QString getPath();
-    int getMsgNum();
-    int getCurMsgNum();
-    int getNewMsgNum();
-
-    // functions related to this area msg, all called from Ksmapi
-    smapiMsg* getCurMsg();
-    smapiMsg* setCurMsg(int newMsgNum);
-    smapiMsg* getFirstMsg();
-    smapiMsg* getNextMsg();
-    smapiMsg* getPrevMsg();
-    smapiMsg* getLastMsg();
-
-    enum OPENMODE {NORMAL, CREAT, CRIFNEC};
-    enum AREATYPE {SDM, SQUISH, ECHO};
-
-    QList<smapiMsg> msgList;
 
 };
 

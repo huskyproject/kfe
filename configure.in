@@ -72,9 +72,6 @@ AC_CHECK_LIB(smapilnx, SquishOpenArea, ,
 [AC_MSG_ERROR([libsmapilnx not found])
 ])
 
-AC_CHECK_LIB(theBackYard, PrettyGirls, echo "well done",
-[AC_MSG_WARN([yee-ha, too bad - no girls :-(])
-])
 
 AC_CHECK_LIB(fidoconfig, existAddr, , 
 [AC_MSG_ERROR([libfidoconfig not found])

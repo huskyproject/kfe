@@ -18,17 +18,23 @@ class msgListWidget : public KTabListBox
     Q_OBJECT
 
 public:
-    msgListWidget(QWidget* parent=0);
+    msgListWidget(QWidget* parent=0, Ksmapi* newSmapi = 0);
     ~msgListWidget();
 
 
 public slots:
-    void rescanContent(smapiArea* newarea);
+    void rescanContent();
+
+
+signals:
+    void newSelection(int);
+
 
 private slots:
     void msgSelected(int);
 
-signals:
-    void newSelection(int);
+
+private:
+    Ksmapi* smapi;
 };
 #endif

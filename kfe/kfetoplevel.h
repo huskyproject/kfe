@@ -2,14 +2,13 @@
 #define _TOPLEVEL_H_
 
 #include <kapp.h>
-#include <ktmainwindow.h>
+#include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <ktoolbar.h>
 #include <qpopmenu.h>
 #include <qaccel.h>
 #include <knewpanner.h>
-#include <kconfig.h>
 
 #include "arealistwidget.h"
 #include "msglistwidget.h"
@@ -25,15 +24,18 @@ public:
     KkfeTopLevel();
     ~KkfeTopLevel();
 
+    
 protected:
     void setupMenuBar();
     void setupStatusBar();
     void setupToolBar();
 
+
 private slots:
     // menu slots
     void cmFileQuit();
 
+    void cmRescanAreaList();
     void cmAreaFirst();
     void cmAreaNext();
     void cmAreaPrev();
@@ -45,16 +47,12 @@ private slots:
     void cmMessageLast();
     
     // misc slots
-    void cmUpdateAreaList();
-    void cmUpdateMsgList(int);
-    void cmUpdateMsg(int);
+    void cmAreaListSelected(int);
+    void cmMsgListSelected(int);
 
-    //misc
-    void readConfig();
-    void writeConfig();
 
 private:
-    KConfig* config;
+    Ksmapi* smapi;
     
     KMenuBar *menubar;
     KStatusBar *statusbar;
@@ -75,13 +73,9 @@ private:
     
     bool showArealist, showMsglist, showStatusbar, showToolbar;
 
-    Ksmapi* smapi;
+    void updateMsgList();
+    void updateMsg();
 
-    // Config related
-    int widgetwidth;
-    int widgetheight;
-    int vpannerseperatorpos;
-    int hpannerseperatorpos;
-
+    //    KDNDDropZone * dropZone;
 };
 #endif

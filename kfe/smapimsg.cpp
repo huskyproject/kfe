@@ -3,6 +3,7 @@
 
 smapiMsg::smapiMsg(HAREA newarea, word mode, dword msgn)
 {
+    debug("smapiMsg::smapiMsg");
     hmsg = MsgOpenMsg(newarea, mode, msgn);
 
     if (hmsg != NULL) {
@@ -14,16 +15,16 @@ smapiMsg::smapiMsg(HAREA newarea, word mode, dword msgn)
         printf("error in smapiMsg()%d\n", msgapierr);
     }
 
-
-//    if (hmsg == GetCurPos) {
-//        printf("current\n");
-//    }
-
+    //    if (hmsg == GetCurPos) {
+    //        printf("current\n");
+    //    }
 }
 
-    
+
+
 smapiMsg::~smapiMsg()
 {
+    printf("smapiMsg::~smapiMsg()\n");
     MsgCloseMsg(hmsg);
 }
 
@@ -75,6 +76,7 @@ void normalize(char *s, int stripSoft)
 }
 
 
+
 QString smapiMsg::getBody()
 {
     char* minfo;
@@ -82,12 +84,16 @@ QString smapiMsg::getBody()
 
     printf("smapiMsg::getBody()\n");
     bodycontent = (char*) malloc(32768);
+    printf("smapiMsg::getBody()\n");
 
     if (hmsg != NULL) {
+        printf("smapiMsg::getBody()\n");
         //        make it faster
         //        dword MsgReadMsg(HMSG hmsg, dword ofs, dword bytes, byte *text, dword cbyt, byte *ctxt);
 
         MsgReadMsg(hmsg, &xmsg, 0L, 32768, bodycontent, 0, NULL);
+        printf("smapiMsg::getBody()\n");
+
         //        MsgReadMsg(hmsg, &xmsg, 0L, 0L, NULL, 0, NULL);
         // find something nicer, when I have time
         normalize(bodycontent, 0);

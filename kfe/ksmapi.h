@@ -7,7 +7,7 @@
  * class Ksmapi
  * This class is a complete wrapper around the functionality of the
  * Squish Msg Api. It maintains a QList of all areas mentioned in
- * fidoconfig.
+ * fidoconfig and a QList of all Msgs in the current Area
  */
 
 #ifndef _KSMAPI_H
@@ -34,18 +34,26 @@ public:
     smapiArea* getCurArea();
     smapiArea* setCurArea(int newAreaNum);
     smapiArea* getFirstArea();
-    smapiArea* getNextArea();
     smapiArea* getPrevArea();
+    smapiArea* getNextArea();
     smapiArea* getLastArea();
     smapiArea* getFirstNewArea();
 
     void rescanMsgs();
+    smapiMsg* getCurMsg();
+    smapiMsg* setCurMsg(int newAreaNum);
+    smapiMsg* getFirstMsg();
+    smapiMsg* getPrevMsg();
+    smapiMsg* getNextMsg();
+    smapiMsg* getLastMsg();
+    smapiMsg* getFirstNewMsg();
 
 private:
     struct _minf m;
 
     QList<smapiArea> areaList;
-
+    QList<smapiMsg> msgList;
+    
     s_fidoconfig* fidoconfig;
 };
 

@@ -24,10 +24,16 @@ public:
     smapiMsg(HAREA newarea, word mode, dword msgn);
     ~smapiMsg();
 
+    killMsg();
+
     QString getFrom();
     QString getTo();
     QString getSubject();
     QString getBody();
+
+private:
+    readMsg();
+    writeMsg();
 };
 
 #endif
