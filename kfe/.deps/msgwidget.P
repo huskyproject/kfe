@@ -49,6 +49,7 @@ msgwidget.o: msgwidget.cpp /usr/include/qt/qfile.h \
  /usr/include/qt/qsocketnotifier.h /usr/local/kde/include/kfmipc.h \
  /usr/include/unistd.h /usr/include/posix_opt.h \
  /usr/include/confname.h /usr/include/qt/qmultilinedit.h ksmapi.h \
- smapiarea.h /usr/local/include/msgapi.h /usr/local/include/compiler.h \
- /usr/local/include/typedefs.h /usr/local/include/stamp.h \
- /usr/local/include/api_brow.h smapimsg.h
+ /usr/local/include/fidoconfig.h /usr/local/include/msgapi.h \
+ /usr/local/include/compiler.h /usr/local/include/typedefs.h \
+ /usr/local/include/stamp.h /usr/local/include/api_brow.h smapiarea.h \
+ smapimsg.h

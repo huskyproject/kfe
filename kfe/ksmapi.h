@@ -15,9 +15,9 @@
 
 #include <qlist.h>
 
-//extern "C" {
-//#include <fidoconfig.h>
-//}
+extern "C" {
+#include <fidoconfig.h>
+}
 
 #include "smapiarea.h"
 #include "smapimsg.h"
@@ -46,7 +46,7 @@ private:
 
     QList<smapiArea> areaList;
 
-//    s_fidoconfig* fidoconfig;
+    s_fidoconfig* fidoconfig;
 };
 
 #endif

@@ -18,7 +18,6 @@ smapiArea::smapiArea(char* newname, char* newpath, word mode, word type)
         // store the info
         msgs = (int)MsgNumMsg(harea);
         curmsg = (int)MsgCurMsg(harea);
-        printf("Num: %d Cur: %d\n", msgs, curmsg);
         newmsgs = (msgs - curmsg);
     } else {
         printf("fehler beim oeffnen: \n");

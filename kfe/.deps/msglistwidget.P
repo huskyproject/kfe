@@ -27,7 +27,8 @@ msglistwidget.o: msglistwidget.cpp /usr/include/stdio.h \
  /usr/include/endian.h /usr/include/bytesex.h \
  /usr/include/sys/select.h /usr/include/selectbits.h \
  /usr/include/alloca.h /usr/local/kde/include/kprogress.h \
- /usr/include/qt/qrangecontrol.h msglistwidget.h ksmapi.h smapiarea.h \
- /usr/local/include/msgapi.h /usr/local/include/compiler.h \
- /usr/local/include/typedefs.h /usr/local/include/stamp.h \
- /usr/local/include/api_brow.h smapimsg.h
+ /usr/include/qt/qrangecontrol.h msglistwidget.h ksmapi.h \
+ /usr/local/include/fidoconfig.h /usr/local/include/msgapi.h \
+ /usr/local/include/compiler.h /usr/local/include/typedefs.h \
+ /usr/local/include/stamp.h /usr/local/include/api_brow.h smapiarea.h \
+ smapimsg.h

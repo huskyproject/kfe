@@ -41,18 +41,19 @@ kfetoplevel.o: kfetoplevel.cpp kfetoplevel.h \
  /usr/include/qt/qlabel.h /usr/include/qt/qpopmenu.h \
  /usr/include/qt/qaccel.h /usr/include/qt/qkeycode.h \
  /usr/local/kde/include/knewpanner.h arealistwidget.h \
- /usr/local/kde/include/ktablistbox.h ksmapi.h smapiarea.h \
- /usr/local/include/msgapi.h /usr/local/include/compiler.h \
- /usr/local/include/typedefs.h /usr/local/include/stamp.h \
- /usr/local/include/api_brow.h smapimsg.h msglistwidget.h msgwidget.h \
- /usr/local/kde/include/kfm.h /usr/include/qt/qdialog.h \
- /usr/include/qt/qpushbutton.h /usr/local/kde/include/kurl.h \
- /usr/local/kde/include/kfmclient_ipc.h /usr/include/ctype.h \
- /usr/local/kde/include/ksock.h /usr/include/sys/socket.h \
- /usr/include/socketbits.h /usr/include/sockaddrcom.h \
- /usr/include/asm/socket.h /usr/include/asm/sockios.h \
- /usr/include/sys/un.h /usr/include/netinet/in.h \
- /usr/include/qt/qsocketnotifier.h /usr/local/kde/include/kfmipc.h \
- /usr/include/unistd.h /usr/include/posix_opt.h \
- /usr/include/confname.h /usr/include/qt/qmultilinedit.h \
- /usr/include/qt/qmessagebox.h /usr/local/kde/include/kiconloader.h
+ /usr/local/kde/include/ktablistbox.h ksmapi.h \
+ /usr/local/include/fidoconfig.h /usr/local/include/msgapi.h \
+ /usr/local/include/compiler.h /usr/local/include/typedefs.h \
+ /usr/local/include/stamp.h /usr/local/include/api_brow.h smapiarea.h \
+ smapimsg.h msglistwidget.h msgwidget.h /usr/local/kde/include/kfm.h \
+ /usr/include/qt/qdialog.h /usr/include/qt/qpushbutton.h \
+ /usr/local/kde/include/kurl.h /usr/local/kde/include/kfmclient_ipc.h \
+ /usr/include/ctype.h /usr/local/kde/include/ksock.h \
+ /usr/include/sys/socket.h /usr/include/socketbits.h \
+ /usr/include/sockaddrcom.h /usr/include/asm/socket.h \
+ /usr/include/asm/sockios.h /usr/include/sys/un.h \
+ /usr/include/netinet/in.h /usr/include/qt/qsocketnotifier.h \
+ /usr/local/kde/include/kfmipc.h /usr/include/unistd.h \
+ /usr/include/posix_opt.h /usr/include/confname.h \
+ /usr/include/qt/qmultilinedit.h /usr/include/qt/qmessagebox.h \
+ /usr/local/kde/include/kiconloader.h

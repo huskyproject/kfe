@@ -21,26 +21,17 @@ Ksmapi::Ksmapi(word defZone)
     // Mayber I will change it, or someone else, time will tell
 
     //init fidoconfig
-    //    fidoconfig = readConfig();
-    //    printf ("hier knallt\n");
-
+    fidoconfig = readConfig();
 }
 
 
 Ksmapi::~Ksmapi()
 {
-    printf("Ksmapi::~Ksmapi()\n");
-    
     smapiArea* area;
     for (area = areaList.first(); area != 0; area = areaList.next()) {
-        printf("now: %s\n", (const char *)area->getName());
         delete area;
-        printf ("--closed area\n");
     }
-    printf ("closing done\n");
-    
     MsgCloseApi();
-    printf ("after msgcloseapi\n");
 }
 
 
@@ -54,10 +45,29 @@ void Ksmapi::rescanAreas()
     
     areaList.clear();
 
-    smapiArea* newArea;
+    // *** Check here also for non EchoAreas.
 
-    // *** removed, when fidoconfig is done
-#include "areas.c"
+    smapiArea* newArea;
+    s_area* fidoconfigarea;
+
+    for (unsigned int i = 0; i < fidoconfig->echoAreaCount; i++) {
+        debug("Echo: %s", fidoconfig->echoAreas[i].areaName);
+        debug("Nr: %d", i);
+
+        // *** do this only, if it are no passthrough areas
+        debug ("is: %d", fidoconfig->echoAreas[i].msgbType);
+        if (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SQUISH) {
+            debug("passth");
+        }
+            
+        newArea = new smapiArea(
+                                fidoconfig->echoAreas[i].areaName,
+                                fidoconfig->echoAreas[i].fileName,
+                                smapiArea::NORMAL,
+                                (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SDM?smapiArea::SDM:smapiArea::SQUISH) | smapiArea::ECHO
+                               );
+        areaList.append(newArea);
+    }
 }
 
 
