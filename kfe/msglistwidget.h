@@ -21,20 +21,12 @@ public:
     msgListWidget(QWidget* parent=0, Ksmapi* newSmapi = 0);
     ~msgListWidget();
 
-
 public slots:
-    void rescanContent();
-
-
-signals:
-    void newSelection(int);
-
-
-private slots:
-    void msgSelected(int);
-
+    void rescan();
 
 private:
     Ksmapi* smapi;
 };
 #endif
+
+

@@ -24,12 +24,12 @@ public:
 
 
 public slots:
-    void areaSelected(int);
-    void updateContent(int selected);
-    
-signals:
-    void newSelection(int);
+    void updateContent();
+    void reSort(int sortorder);
 };
 
 #endif
+
+
+
 

@@ -24,9 +24,6 @@ public:
 
 public slots:
     void updateMsg();
-
-protected:
-    void initGeometry();
 };
 
 #endif

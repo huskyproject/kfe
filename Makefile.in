@@ -10,6 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+####### kdevelop will overwrite this part!!! (begin)##########
+
 
 SHELL = @SHELL@
 
@@ -81,14 +83,27 @@ LIBDL = @LIBDL@
 LIBJPEG = @LIBJPEG@
 LIBMICO = @LIBMICO@
 LIBOBJS = @LIBOBJS@
+LIBPNG = @LIBPNG@
 LIBPTHREAD = @LIBPTHREAD@
 LIBPYTHON = @LIBPYTHON@
 LIBQIMGIO = @LIBQIMGIO@
 LIBSOCKET = @LIBSOCKET@
+LIBTIFF = @LIBTIFF@
 LIBTOOL = @LIBTOOL@
 LIBUCB = @LIBUCB@
 LIBUTIL = @LIBUTIL@
+LIBXDMCP = @LIBXDMCP@
+LIBZ = @LIBZ@
+LIB_KDECORE = @LIB_KDECORE@
+LIB_KDEUI = @LIB_KDEUI@
+LIB_KFILE = @LIB_KFILE@
+LIB_KFM = @LIB_KFM@
+LIB_KHTML = @LIB_KHTML@
+LIB_KHTMLW = @LIB_KHTMLW@
+LIB_KIMGIO = @LIB_KIMGIO@
 LIB_LIBS = @LIB_LIBS@
+LIB_QT = @LIB_QT@
+LIB_X11 = @LIB_X11@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MICO_INCLUDES = @MICO_INCLUDES@
@@ -142,8 +157,11 @@ x_includes = @x_includes@
 x_libraries = @x_libraries@
 xdmconfigsubdir = @xdmconfigsubdir@
 
-SUBDIRS = kfe pics
+SUBDIRS = kfe 
 
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO kfe.lsm 
+
+####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = foreign 
@@ -151,10 +169,10 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = 
-DIST_COMMON =  README ./stamp-h.in ChangeLog Makefile.am Makefile.in \
-TODO acconfig.h acinclude.m4 aclocal.m4 config.guess config.h.bot \
-config.h.in config.sub configure configure.in install-sh ltconfig \
-ltmain.sh missing mkinstalldirs
+DIST_COMMON =  README ./stamp-h.in AUTHORS COPYING ChangeLog INSTALL \
+Makefile.am Makefile.in TODO acconfig.h acinclude.m4 aclocal.m4 \
+config.guess config.h.bot config.h.in config.sub configure configure.in \
+install-sh ltconfig ltmain.sh missing mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)

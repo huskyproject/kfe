@@ -1,42 +1,49 @@
 #ifndef _SMAPIAREA_H
 #define _SMAPIAREA_H
 
-#include "qstring.h"
-#include "qlist.h"
 #include <stdio.h>
+#include <qstring.h>
+#include <qlist.h>
 
 extern "C" {
 #include <msgapi.h>
 }
+#include "address.h"
 #include "smapimsg.h"
 
 
 class smapiArea
 {
 public:
-    smapiArea(char* newname, char* newpath, word mode, word type);
+    smapiArea(char* newname, char* newpath, word mode, word type, address* newareaaddr);
+
     ~smapiArea();
 
     QString getName();
     QString getPath();
-    int getMsgNum();
+    UMSGID msgNum2UmsgId(int num);
+    int umsgId2MsgNum(UMSGID umsgid);
     int getCurMsgNum();
-    int getNewMsgNum();
+    int getCurUmsgId();
+    int getLastRead();
+    void setCurUmsgId(UMSGID newumsgid);
+    int getAreaSize();
+    address *getAddress();
     HAREA getHAREA();
+    void setLastRead(UMSGID newlastread);
 
     enum OPENMODE {NORMAL, CREAT, CRIFNEC};
     enum AREATYPE {SDM, SQUISH, ECHO};
 
 private:
     HAREA harea;
+    UMSGID lastread;
 
     QString name;
     QString path;
     
-    int msgs;
-    int curmsg;
-    int newmsgs;
-
+    address* areaaddress;
 };
 
 #endif
+

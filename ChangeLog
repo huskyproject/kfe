@@ -6,35 +6,44 @@ ChangeLog for kfe - the KDE Fido Editor
 ! Bug Fix
 * Just babel of mine
 -----------------------------------------------------------
+99.04.03:
+- mailcomposer: writes _new_ messges
+
+99.03.30:
+- the positions of the panners are now correctly restored
+- more enhancements to the composer, will be useful soon
+
+99.03.20:
+- reenabled the Keybindings, cut-off your mouse wire now!
+
+99.03.13:
+- switched to KDevelop
+- removed the babel, nobody reads docs these days
+
+99.03.08:
+! Fixed moving beyond boundaries
+
 99.03.03:
-+ 	Menus and toolbar seem to work
-! 	some bug fixes (to much to list)
-* 	Well, after a long time of playing with the libs, I took the time
-	to complete the redesign of the code.
-        Next thing to come is MailComposer & Kludges
++ Menus and toolbar seem to work
+! some bug fixes (to much to list)
 
 99.01.16:
 +	Highlight of Msgs from/to me is done.
-	(But needs to be configured)
+	(But still needs to be configured)
 -	The new classes seen to work, now they want to be documented
 
 99.01.15:
 -	After a time of redesign, I put up again with the changelog
 	I won't put all changes in here, as there are to many changes,
-        and the classes are not yet documented, so, who cares?
-*	Right now, the new classe work, next big step is the compose window,
-	but I feel a litte overdone. I startet 'bout 11 in the morning, now it's
-        21:25. So, I will get a good bottle of wine now, and make my mind free by reading
-        some mail. (Maybe last day using Golded?)
-        Well, after that, slashdot will be a good starting point, and after that, I will
-        take a couple of hours sleep.
-        BTW, todays thank-you to Aldi-Kaffe, Holsten Pils, The Verve, Onkelz, The King.
-        Think I must start tonite with Falco, just for the memory.
+  and the classes are not yet documented, so, who cares?
 
 99.01.09:
 !	Finished the rewrite of some brain busted conceps.
-*	Todays thank-you's go to Melitta, Warsteiner & NOFX
 
 98.12.27:
 +	I startet this changelog, after I released an early
-       	try version to the cvs 98.12.25. Merry Xmas.
+  try version to the cvs 98.12.25. Merry Xmas.
+
+
+
+

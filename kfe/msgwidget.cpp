@@ -46,9 +46,25 @@ msgWidget::~msgWidget()
 
 void msgWidget::updateMsg()
 {
-    if (smapi->getCurArea()->getMsgNum() > 0) {
-        setText(smapi->getCurMsg()->getBody());
+    debug("void msgWidget::updateMsg()");
+    CHECK_PTR(smapi->getCurMsg());
+    if (smapi->getCurMsg() != 0) {
+    		debug("set body");
+        setText((const char *)smapi->getCurMsg()->getBody());
+		    smapi->getCurMsg()->setRead();
     } else {
         setText(0);
     }
+    debug("/msgWidget::updateMsg()");
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -17,20 +17,19 @@
 
 
 msgListWidget::msgListWidget(QWidget *parent, Ksmapi* newSmapi = 0)
-    : KTabListBox(parent, 0, 6)
+    : KTabListBox(parent, 0, 7)
 {
     smapi = newSmapi;
 
     setMinimumSize(400, 100);
-    setColumn(0, "nr", 40);
-    setColumn(1, "from", 170);
-    setColumn(2, "to", 170);
-    setColumn(3, "subject", 200);
-    setColumn(4, "written", 40);
-    setColumn(5, "received", 40);
+    setColumn(0, 0, 20);
+    setColumn(1, "nr", 40);
+    setColumn(2, "from", 170);
+    setColumn(3, "to", 170);
+    setColumn(4, "subject", 200);
+    setColumn(5, "written", 40);
+    setColumn(6, "received", 40);
     resize(size());
-
-    connect(this, SIGNAL(selected(int, int)), this, SLOT(msgSelected(int)));
 }
 
 
@@ -41,23 +40,29 @@ msgListWidget::~msgListWidget()
 }
 
 
-void msgListWidget::rescanContent()
+
+void msgListWidget::rescan()
 {
-    printf("msgListWidget::rescanContent\n");
+    QString hdr(256);
 
     clear();
-    QString hdr(256);
     setAutoUpdate(FALSE);
     smapiMsg* msg;
-    printf("msgListWidget::rescanContent\n");
-    
+
+    smapi->rescanMsgs();
     int i = 0; // *** check for real msg num instead
-    debug("vor schleife");
     // *** check for null pointer here, may become a bug
-    if (smapi->getCurArea()->getMsgNum() > 0) {
+    if (smapi->getCurArea() !=  0) {
+    		debug("beim scannen der msgs");
+    		debug("area: %s", (const char*)smapi->getCurArea()->getName());
         for(msg = smapi->getFirstMsg(); msg != 0; msg = smapi->getNextMsg()) {
-            debug("in schleife");
-            hdr.sprintf("%d\n%s\n%s\n%s", ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());
+            debug("in for beim scannen");
+        		if (msg->isUnread()) {
+		            hdr.sprintf("%d\n%d\n%s\n%s\n%s", 1, ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());
+		        } else {
+						    hdr.sprintf("%d\n%d\n%s\n%s\n%s", 0, ++i, (const char*)msg->getFrom(), (const char*)msg->getTo(), (const char*)msg->getSubject());		
+						}
+						debug("insertItem(hdr);");
             insertItem(hdr);
             if (msg->getTo().contains("Michael Espey") > 0) {
                 changeItemColor(QColor(0,0,255));
@@ -67,14 +72,15 @@ void msgListWidget::rescanContent()
                 changeItemColor(QColor(0,255,0));
             }
         }
+    } else {
+    		debug("no current Area");
     }
     setAutoUpdate(TRUE);
     repaint();
 }
 
 
-void msgListWidget::msgSelected(int item)
-{
-    printf("msgListWidget::msgSelected\n");
-    emit newSelection(item);
-}
+
+
+
+
