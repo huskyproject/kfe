@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 extern "C" {
-#include <msgapi.h>
+#include <smapi/msgapi.h>
 }
 #include "address.h"
 #include "msgattributes.h"

@@ -22,7 +22,7 @@
 #include <qwidget.h>
 #include <klined.h>
 #include <keditcl.h>
-#include <msgapi.h>
+#include <smapi/msgapi.h>
 #include "address.h"
 
 /**
