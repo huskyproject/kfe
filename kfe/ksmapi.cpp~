@@ -1,0 +1,245 @@
+/*
+ *   kfe - a squish base message editor
+ *   Copyright (C) 1998  Michael Espey
+ *
+ */
+
+#include <kprogress.h>
+#include "ksmapi.h"
+
+
+Ksmapi::Ksmapi(word defZone)
+{
+    //init the SMAPI
+    m.req_version = 0;
+    m.def_zone = defZone;
+    if (MsgOpenApi(&m) != 0) {
+        printf("MsgApiOpen Error\n");
+        // *** make error box here
+    }
+
+    //init fidoconfig
+    fidoconfig = readConfig();
+    if (fidoconfig != 0) {
+        debug("fidoconfig is open");
+    } else {
+        debug("error opening fidoconfig");
+    }
+}
+
+
+
+Ksmapi::~Ksmapi()
+{
+    printf("Ksmapi::~Ksmapi()\n");
+    
+    smapiArea* area;
+    for (area = areaList.first(); area != 0; area = areaList.next()) {
+        printf("now: %s\n", (const char *)area->getName());
+        delete area;
+        printf ("--closed area\n");
+    }
+    printf ("closing done\n");
+
+    MsgCloseApi();
+    printf ("after msgcloseapi\n");
+}
+
+
+void Ksmapi::rescanAreas()
+{
+    debug("Ksmapi::rescanAreas()\n");
+    smapiArea* newArea;
+    address* newaddress;
+
+
+    // *** Check, if arealist is empty, before clearing it?
+    areaList.clear();
+
+
+    // open netmail area
+    newaddress = new address();
+    newaddress->setZone(fidoconfig->netMailArea.useAka->zone);
+    newaddress->setNet(fidoconfig->netMailArea.useAka->net);
+    newaddress->setNode(fidoconfig->netMailArea.useAka->node);
+    newaddress->setPoint(fidoconfig->netMailArea.useAka->point);
+    newaddress->setDomain(fidoconfig->netMailArea.useAka->domain);
+    debug("fidoconfiginfo: %s", fidoconfig->netMailArea.areaName);
+
+    newArea = new smapiArea(
+			    fidoconfig->netMailArea.areaName,
+			    fidoconfig->netMailArea.fileName,
+			    smapiArea::NORMAL,
+			    (fidoconfig->netMailArea.msgbType == MSGTYPE_SDM?smapiArea::SDM:smapiArea::SQUISH),
+			    newaddress);
+    areaList.append(newArea);
+
+    
+    
+    // open all non-passthrough echo area
+    debug("AreaCount: %d", fidoconfig->echoAreaCount);
+
+    for (unsigned int i = 0; i < fidoconfig->echoAreaCount; i++) {
+        // do this only, if it no passthrough area
+        if (fidoconfig->echoAreas[i].msgbType != MSGTYPE_PASSTHROUGH) {
+	    newaddress = new address(); // is used for all
+	    // *** build method s_addr2address
+	    newaddress->setZone(fidoconfig->echoAreas[i].useAka->zone);
+	    newaddress->setNet(fidoconfig->echoAreas[i].useAka->net);
+            newaddress->setNode(fidoconfig->echoAreas[i].useAka->node);
+            newaddress->setPoint(fidoconfig->echoAreas[i].useAka->point);
+            newaddress->setDomain(fidoconfig->echoAreas[i].useAka->domain);
+            debug("fidoconfiginfo: %s", fidoconfig->echoAreas[i].areaName);
+            newArea = new smapiArea(
+                                    fidoconfig->echoAreas[i].areaName,
+                                    fidoconfig->echoAreas[i].fileName,
+                                    smapiArea::NORMAL,
+                                    (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SDM?smapiArea::SDM:smapiArea::SQUISH) | smapiArea::ECHO,
+                                    newaddress);
+            areaList.append(newArea);
+        }
+    }
+}
+
+
+
+smapiArea* Ksmapi::getCurArea()
+{
+    return areaList.current();
+}
+
+
+
+smapiArea* Ksmapi::setCurArea(int newarea)
+{
+    return areaList.at(newarea);
+}
+
+
+
+smapiArea* Ksmapi::getFirstArea()
+{
+    return areaList.first();
+}
+
+
+
+smapiArea* Ksmapi::getNextArea()
+{
+    return areaList.next();
+}
+
+
+
+smapiArea* Ksmapi::getPrevArea()
+{
+    return areaList.prev();
+}
+
+
+
+smapiArea* Ksmapi::getLastArea()
+{
+    return areaList.last();
+}
+
+
+
+void Ksmapi::rescanMsgs()
+{
+    printf("Ksmapi::rescanMsgs()\n");
+    smapiArea* area = getCurArea();
+    QString hdr(256);
+    
+    if (area->getHAREA() != NULL) {
+        msgList.clear();
+        printf("area != NULL\n");
+
+        int i = 1;
+        KProgress* prog = new KProgress(i, area->getMsgNum(), i, KProgress::Horizontal);
+        prog->resize(400,40);
+        prog->show();
+
+        while (i <= area->getMsgNum()) {
+            debug("vor append");
+            msgList.append(new smapiMsg(area->getHAREA(), MOPEN_READ, (dword)i++));
+            debug("nach append");
+            prog->advance(1);
+        }
+        prog->hide();
+        delete prog;
+    } else {
+        printf("Could not open %s", "echo->filename");
+    }
+}
+
+
+
+smapiMsg* Ksmapi::getCurMsg()
+{
+    return msgList.current();
+}
+
+
+
+int Ksmapi::getCurMsgNum()
+{
+    return msgList.at() + 1;
+}
+
+
+
+smapiMsg* Ksmapi::setCurMsg(int newAreaNum)
+{
+    return msgList.at(newAreaNum);
+}
+
+
+
+smapiMsg* Ksmapi::getFirstMsg()
+{
+    return msgList.first();
+}
+
+
+
+smapiMsg* Ksmapi::getPrevMsg()
+{
+    return msgList.prev();
+}
+
+
+
+smapiMsg* Ksmapi::getNextMsg()
+{
+    return msgList.next();
+}
+
+
+
+smapiMsg* Ksmapi::getLastMsg()
+{
+    return msgList.last();
+}
+
+
+
+smapiMsg* Ksmapi::getFirstNewMsg()
+{
+    return 0; //msgList.current();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
