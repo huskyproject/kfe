@@ -12,8 +12,9 @@ Todolist as of 981227:
 ! reade window must be able to show/hide kludges & seenies
   (in fact, this means, smmpiMsg must be able to reade the kludges)
 - Make reader widget colorized
-- create faster access to the arealists (nearly finished, 98.01.13)
+- create faster access to the arealists (nearly finished, 99.01.13)
+  (is it fast enough now?)
 - KDE like Doku would be nice, wouldn't it?
 - Config Dialog, for misc things.
-
+  (startet 99.01.16)
 what else do YOU want?

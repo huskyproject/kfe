@@ -6,6 +6,11 @@ ChangeLog for kfe - the KDE Fido Editor
 ! Bug Fix
 * Just babel of mine
 -----------------------------------------------------------
+99.01.16:
++	Highlight of Msgs from/to me is done.
+	(But needs to be configured)
+-	The new classes seen to work, now they want to be documented
+
 99.01.15:
 -	After a time of redesign, I put up again with the changelog
 	I won't put all changes in here, as there are to many changes,
