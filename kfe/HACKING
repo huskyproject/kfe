@@ -1,7 +1,0 @@
-In theory, it should compile out of the box, if you have
-the required headers & libs from fidoconfig & smapilnx installed.
-As I am a nice guy, configure checks this out, und refuses to compile,
-until you installed them.
-(This cvs checkout lacks the check, but if hpt compiles,
- you should have everything within reach)
-
