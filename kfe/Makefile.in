@@ -163,7 +163,7 @@ INCLUDES= $(all_includes)
 bin_PROGRAMS = kfe
 
 kfe_SOURCES = msglistwidget.cpp arealistwidget.cpp msgwidget.cpp \
-f_area.cpp f_message.cpp kfetoplevel.cpp main.cpp
+smapiarea.cpp smapimsg.cpp ksmapi.cpp kfetoplevel.cpp main.cpp
 
 kfe_METASOURCES =  arealistwidget.moc.cpp kfetoplevel.moc.cpp msglistwidget.moc.cpp msgwidget.moc.cpp 
 kfe_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -181,8 +181,8 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-kfe_OBJECTS =  msglistwidget.o arealistwidget.o msgwidget.o f_area.o  arealistwidget.moc.o kfetoplevel.moc.o msglistwidget.moc.o msgwidget.moc.o \
-f_message.o kfetoplevel.o main.o
+kfe_OBJECTS =  msglistwidget.o arealistwidget.o msgwidget.o smapiarea.o  arealistwidget.moc.o kfetoplevel.moc.o msglistwidget.moc.o msgwidget.moc.o \
+smapimsg.o ksmapi.o kfetoplevel.o main.o
 kfe_DEPENDENCIES = 
 CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
@@ -195,9 +195,9 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP = --best
-DEP_FILES =  .deps/arealistwidget.P .deps/f_area.P .deps/f_message.P \
-.deps/kfetoplevel.P .deps/main.P .deps/msglistwidget.P \
-.deps/msgwidget.P
+DEP_FILES =  .deps/arealistwidget.P .deps/kfetoplevel.P .deps/ksmapi.P \
+.deps/main.P .deps/msglistwidget.P .deps/msgwidget.P .deps/smapiarea.P \
+.deps/smapimsg.P
 CXXMKDEP = $(CXX) -M $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 SOURCES = $(kfe_SOURCES)
 OBJECTS = $(kfe_OBJECTS)
@@ -208,7 +208,7 @@ all: Makefile $(PROGRAMS)
 .SUFFIXES: .S .c .cpp .lo .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu kfe/Makefile
-	perl $(top_builddir)/automoc /export/home/tracer/src/kfe/kfe/Makefile.in
+	perl $(top_builddir)/automoc /export/home/f/fido/cvsroot/kfe/kfe/Makefile.in
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
 	cd $(top_builddir) \

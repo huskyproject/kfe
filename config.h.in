@@ -19,9 +19,6 @@
 /* Define if you have the <api_brow.h> header file.  */
 #undef HAVE_API_BROW_H
 
-/* Define if you have the <common.h> header file.  */
-#undef HAVE_COMMON_H
-
 /* Define if you have the <compiler.h> header file.  */
 #undef HAVE_COMPILER_H
 
@@ -30,9 +27,6 @@
 
 /* Define if you have the <typedefs.h> header file.  */
 #undef HAVE_TYPEDEFS_H
-
-/* Define if you have the <typesize.h> header file.  */
-#undef HAVE_TYPESIZE_H
 
 /* Define if you have the fidoconfig library (-lfidoconfig).  */
 #undef HAVE_LIBFIDOCONFIG

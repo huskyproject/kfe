@@ -30,8 +30,8 @@
 
 #include "msgwidget.h"
 
-msgWidget::msgWidget(QWidget *parent, const char *name)
-    : QMultiLineEdit(parent, name)
+msgWidget::msgWidget(QWidget *parent)
+    : QMultiLineEdit(parent, "msgWidget")
 {
     setReadOnly(TRUE);
 }
@@ -39,19 +39,11 @@ msgWidget::msgWidget(QWidget *parent, const char *name)
 
 msgWidget::~msgWidget()
 {
-/*    delete dispFont;
-    delete pixmap;
-    delete metrics;
-    delete scrollV;
-    delete scrollH;
-    */
+    ;
 }
 
 
-void msgWidget::showMsg(f_message* item)
+void msgWidget::updateMsg(smapiMsg* newmsg)
 {
-    printf("msgwidget - showMessage\n");
-    printf(item->getBody());
-    setText(item->getBody());
+    setText(newmsg->getBody());
 }
-

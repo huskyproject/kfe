@@ -1,7 +1,7 @@
 /****************************************************************************
 ** areaListWidget meta object code from reading C++ file 'arealistwidget.h'
 **
-** Created: Fri Dec 25 09:15:09 1998
+** Created: Fri Jan 15 21:54:17 1999
 **      by: The Qt Meta Object Compiler ($Revision$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -52,62 +52,26 @@ void areaListWidget::staticMetaObject()
 #endif
 
     typedef void(areaListWidget::*m1_t0)(int);
+    typedef void(areaListWidget::*m1_t1)(Ksmapi*);
     m1_t0 v1_0 = &areaListWidget::areaSelected;
-    QMetaData *slot_tbl = new QMetaData[1];
+    m1_t1 v1_1 = &areaListWidget::updateContent;
+    QMetaData *slot_tbl = new QMetaData[2];
     slot_tbl[0].name = "areaSelected(int)";
+    slot_tbl[1].name = "updateContent(Ksmapi*)";
     slot_tbl[0].ptr = *((QMember*)&v1_0);
-    typedef void(areaListWidget::*m2_t0)(f_area*);
+    slot_tbl[1].ptr = *((QMember*)&v1_1);
+    typedef void(areaListWidget::*m2_t0)(int);
     m2_t0 v2_0 = &areaListWidget::newSelection;
     QMetaData *signal_tbl = new QMetaData[1];
-    signal_tbl[0].name = "newSelection(f_area*)";
+    signal_tbl[0].name = "newSelection(int)";
     signal_tbl[0].ptr = *((QMember*)&v2_0);
     metaObj = new QMetaObject( "areaListWidget", "KTabListBox",
-	slot_tbl, 1,
+	slot_tbl, 2,
 	signal_tbl, 1 );
 }
 
-#include <qobjectdefs.h>
-#if QT_VERSION >= 141
-// newer implementation
-#include <qsignalslotimp.h>
-#else
-// for late-model 1.x header files
-#if !defined(Q_MOC_CONNECTIONLIST_DECLARED)
-#define Q_MOC_CONNECTIONLIST_DECLARED
-#include <qlist.h>
-Q_DECLARE(QListM,QConnection);
-Q_DECLARE(QListIteratorM,QConnection);
-#endif
-#endif
-
 // SIGNAL newSelection
-void areaListWidget::newSelection( f_area* t0 )
+void areaListWidget::newSelection( int t0 )
 {
-    QConnectionList *clist = receivers("newSelection(f_area*)");
-    if ( !clist || signalsBlocked() )
-	return;
-    typedef void (QObject::*RT0)();
-    typedef RT0 *PRT0;
-    typedef void (QObject::*RT1)(f_area*);
-    typedef RT1 *PRT1;
-    RT0 r0;
-    RT1 r1;
-    QConnectionListIt it(*clist);
-    QConnection   *c;
-    QSenderObject *object;
-    while ( (c=it.current()) ) {
-	++it;
-	object = (QSenderObject*)c->object();
-	object->setSender( this );
-	switch ( c->numArgs() ) {
-	    case 0:
-		r0 = *((PRT0)(c->member()));
-		(object->*r0)();
-		break;
-	    case 1:
-		r1 = *((PRT1)(c->member()));
-		(object->*r1)(t0);
-		break;
-	}
-    }
+    activate_signal( "newSelection(int)", t0 );
 }

@@ -7,17 +7,9 @@
 KkfeTopLevel::KkfeTopLevel()
     : KTMainWindow()
 {
+    smapi = new Ksmapi(2); // *** make the def_zone configurable
+
     setMinimumSize(500, 350);
-
-    //init SMAPI
-    m.req_version = 0;
-    m.def_zone = 2;
-    if (MsgOpenApi(&m) != 0) {
-        printf("MsgApiOpen Error");
-        // *** make error box here !
-        exit(1);
-    }
-
 
     hPanner = new KNewPanner(this, "HoizontalPanner",
                              KNewPanner::Horizontal, KNewPanner::Absolute);
@@ -27,25 +19,52 @@ KkfeTopLevel::KkfeTopLevel()
     vPanner = new KNewPanner(hPanner, "VerticalPanner",
                              KNewPanner::Vertical);
 
-    msg = new msgWidget(vPanner, "test");
 
     mList = new msgListWidget(hPanner);
-    connect(mList, SIGNAL(newSelection(f_message*)), msg, SLOT(showMsg(f_message*)));
+    connect(mList, SIGNAL(newSelection(int)),
+            this, SLOT(cmUpdateMsg(int)));
 
-    aList = new areaListWidget(vPanner, "areaList");
-    connect(aList, SIGNAL(newSelection(f_area*)), this, SLOT(cmRescanMessages(f_area*)));
+    aList = new areaListWidget(vPanner);
+    connect(aList, SIGNAL(newSelection(int)),
+            this, SLOT(cmUpdateMsgList(int)));
 
-    
+    msg = new msgWidget(vPanner);
+//    connect(mList, SIGNAL(updateMsg()),
+//            msg, SLOT(updateMsg()));
+
 
     hPanner->activate(mList, vPanner);
     vPanner->activate(aList, msg);
-    
+
     hPanner->setAbsSeperatorPos(100);
     vPanner->setAbsSeperatorPos(100);
 
     setupMenuBar();
     setupStatusBar();
     setupToolBar();
+
+
+    // get this from setup laten
+//    smapi->setCurArea(0);
+    cmUpdateAreaList();
+//    cmUpdateMsgList(0);
+}
+
+
+KkfeTopLevel::~KkfeTopLevel()
+{
+    printf("KkfeTopLevel::~KkfeTopLevel\n");
+
+    printf("delete msg\n");
+    delete msg;
+    printf("delete alist\n");
+    delete aList;
+    printf("delete mlist\n");
+    delete mList;
+    printf("delete smapi\n");
+    delete smapi;
+    printf("after delete smapi\n");
+
 }
 
 
@@ -62,11 +81,21 @@ void KkfeTopLevel::setupMenuBar()
 
     menubar->insertItem(i18n("&File"), mFile);
 
+    // Area Menu
+    mArea = new QPopupMenu();
+
+    ID_AREA_RESCAN = mArea->insertItem(i18n("&Rescan"));
+    mArea->connectItem(ID_AREA_RESCAN, this, SLOT(cmUpdateAreaList()));
+
+    menubar->insertItem(i18n("&Area"), mArea);
+    
     // Message Menu
     mMessage = new QPopupMenu;
 
-    ID_MESSAGE_NEXT = mMessage->insertItem(i18n("next"));
-    ID_MESSAGE_PREV = mMessage->insertItem(i18n("previous"));
+    ID_MESSAGE_FIRST = mMessage->insertItem(i18n("First"));
+    ID_MESSAGE_NEXT = mMessage->insertItem(i18n("Next"));
+    ID_MESSAGE_PREV = mMessage->insertItem(i18n("Previous"));
+    ID_MESSAGE_LAST = mMessage->insertItem(i18n("Last"));
 
     menubar->insertItem(i18n("&Message"), mMessage);
     
@@ -90,13 +119,13 @@ void KkfeTopLevel::setupToolBar()
     toolbar->insertButton(iconLoader.loadIcon("filenew.xpm"), ID_MESSAGE_NEW, SIGNAL(clicked()),
                           kapp, SLOT(slotNextMessage()), TRUE, i18n("New Message"));
     toolbar->insertButton(iconLoader.loadIcon("start.xpm"), 1, SIGNAL(clicked()),
-                          this, SLOT(slotNextMessage()), TRUE, i18n("First Message"));
+                          this, SLOT(cmMessageFirst()), TRUE, i18n("First Message"));
     toolbar->insertButton(iconLoader.loadIcon("prev.xpm"), 2, SIGNAL(clicked()),
-                          kapp, SLOT(slotNextMessage()), TRUE, i18n("Previous Message"));
+                          this, SLOT(cmMessageNext()), TRUE, i18n("Previous Message"));
     toolbar->insertButton(iconLoader.loadIcon("next.xpm"), 3, SIGNAL(clicked()),
-                          kapp, SLOT(slotNextMessage()), TRUE, i18n("Next Message"));
+                          this, SLOT(cmMessagePrev()), TRUE, i18n("Next Message"));
     toolbar->insertButton(iconLoader.loadIcon("finish.xpm"), 4, SIGNAL(clicked()),
-                          kapp, SLOT(slotNextMessage()), TRUE, i18n("Last Message"));
+                          this, SLOT(cmMessageLast()), TRUE, i18n("Last Message"));
     toolbar->insertSeparator();
     toolbar->insertButton(iconLoader.loadIcon("help.xpm"),ID_HELP_CONTENTS,SIGNAL(pressed()),
                           kapp, SLOT(appHelpActivated()), TRUE, i18n("Help Contents"));
@@ -116,51 +145,102 @@ void KkfeTopLevel::setupStatusBar()
     setStatusBar(statusbar);
 }
 
+
 void KkfeTopLevel::cmFileQuit()
 {
 
 }
 
 
-void KkfeTopLevel::cmViewAreas()
+void KkfeTopLevel::cmAreaFirst()
 {
-
+    ;
 }
 
 
-void KkfeTopLevel::cmViewMessages()
+void KkfeTopLevel::cmAreaNext()
 {
-
+    ;
 }
 
 
-void KkfeTopLevel::cmViewStatusbar()
+void KkfeTopLevel::cmAreaPrev()
 {
-    showStatusbar = !showStatusbar;
-    mView->setItemChecked(mView->idAt(3), showStatusbar);
-    if (statusbar) {
-        enableStatusBar(KStatusBar::Show);
-    } else {
-        enableStatusBar(KStatusBar::Hide);
-    }
+    ;
 }
 
 
-void KkfeTopLevel::cmViewToolbar()
+void KkfeTopLevel::cmAreaLast()
 {
-    showToolbar = !showToolbar;
-    mView->setItemChecked(mView->idAt(4), showToolbar);
-    if (toolbar) {
-        enableToolBar(KToolBar::Show, 0);
-    } else {
-        enableToolBar(KToolBar::Hide, 0);
-    }
+    ;
 }
 
 
-// misc slots
-void KkfeTopLevel::cmRescanMessages(f_area* sel)
+void KkfeTopLevel::cmMessageFirst()
 {
-    printf("RescanMessages\n");
-    mList->rescan(sel);
+    printf("KkfeTopLevel::cmMessageFirst()\n");
+    smapi->getCurArea()->getFirstMsg();
+    msg->updateMsg(smapi->getCurArea()->getCurMsg());
+}
+
+
+void KkfeTopLevel::cmMessageNext()
+{
+    printf("KkfeTopLevel::cmMessageNext()\n");
+    smapi->getCurArea()->getNextMsg();
+    msg->updateMsg(smapi->getCurArea()->getCurMsg());
+}
+
+
+void KkfeTopLevel::cmMessagePrev()
+{
+    printf("KkfeTopLevel::cmMessagePrev()\n");
+    smapi->getCurArea()->getPrevMsg();
+    msg->updateMsg(smapi->getCurArea()->getCurMsg());
+}
+
+
+void KkfeTopLevel::cmMessageLast()
+{
+    printf("KkfeTopLevel::cmMessageLst()\n");
+    smapi->getCurArea()->getLastMsg();
+    msg->updateMsg(smapi->getCurArea()->getCurMsg());
+}
+    
+
+
+
+
+
+
+
+void KkfeTopLevel::cmUpdateAreaList()
+{
+    smapi->rescanAreas();
+    aList->updateContent(smapi);
+    cmUpdateMsgList(0);  // *** make this the lastread of the area
+}
+
+
+void KkfeTopLevel::cmUpdateMsgList(int newitem)
+{
+    printf("KkfeTopLevel::cmUpdateMsgList\n");
+    smapi->setCurArea(newitem);
+    smapi->rescanMsgs();
+    mList->rescanContent(smapi->getCurArea());
+    cmUpdateMsg(0); // ***check out the lastreadpointer here
+}
+
+
+void KkfeTopLevel::cmUpdateMsg(int newitem)
+{
+    printf("KkfeTopLevel::cmUpdateMsg()\n");
+    smapi->getCurArea()->setCurMsg(newitem);
+    msg->updateMsg(smapi->getCurArea()->getCurMsg());
+
+    printf("Modify Statbar\n");
+    char stattext[25];
+    sprintf(stattext, "Msg x of %d (x left)", smapi->getCurArea()->getMsgNum());
+    statusbar->changeItem(stattext, 1);
+
 }

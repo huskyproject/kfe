@@ -1,4 +1,3 @@
-
 #ifndef _MSGWIDGET_H
 #define _MSGWIDGET_H
 
@@ -10,23 +9,23 @@
 #include <klocale.h>
 #include <qmultilinedit.h>
 
-#include "f_message.h"
+#include "ksmapi.h"
+#include "smapimsg.h"
 
 class msgWidget : public QMultiLineEdit {
     Q_OBJECT
+
+private:
+    Ksmapi* smapi;
     
 public:
-    msgWidget(QWidget *parent=0, const char *name=0 );
+    msgWidget(QWidget *parent=0);
     ~msgWidget();
 
-    void update(int msgnum);
-
 public slots:
-    void showMsg(f_message* item);
+    void updateMsg(smapiMsg* newmsg);
 
 protected:
-    //void paintEvent(QPaintEvent *pa);
-//    void closeEvent ( QCloseEvent *e);
     void initGeometry();
 };
 

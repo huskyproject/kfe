@@ -21,7 +21,7 @@ class f_message
 
     // *** make class complete
 public:
-    f_message(f_area* aarea, int ahw);
+    f_message(f_area* area, int hw);
     ~f_message();
 
     QString getFrom();

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** msgWidget meta object code from reading C++ file 'msgwidget.h'
 **
-** Created: Fri Dec 25 21:21:53 1998
+** Created: Fri Jan 15 21:54:26 1999
 **      by: The Qt Meta Object Compiler ($Revision$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -51,10 +51,10 @@ void msgWidget::staticMetaObject()
     QMultiLineEdit::initMetaObject();
 #endif
 
-    typedef void(msgWidget::*m1_t0)(f_message*);
-    m1_t0 v1_0 = &msgWidget::showMsg;
+    typedef void(msgWidget::*m1_t0)(smapiMsg*);
+    m1_t0 v1_0 = &msgWidget::updateMsg;
     QMetaData *slot_tbl = new QMetaData[1];
-    slot_tbl[0].name = "showMsg(f_message*)";
+    slot_tbl[0].name = "updateMsg(smapiMsg*)";
     slot_tbl[0].ptr = *((QMember*)&v1_0);
     metaObj = new QMetaObject( "msgWidget", "QMultiLineEdit",
 	slot_tbl, 1,

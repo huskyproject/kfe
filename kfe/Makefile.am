@@ -19,7 +19,7 @@ INCLUDES= $(all_includes)
 bin_PROGRAMS = kfe
 
 kfe_SOURCES = msglistwidget.cpp arealistwidget.cpp msgwidget.cpp \
-f_area.cpp f_message.cpp kfetoplevel.cpp main.cpp
+smapiarea.cpp smapimsg.cpp ksmapi.cpp kfetoplevel.cpp main.cpp
 
 kfe_METASOURCES = USE_AUTOMOC
 kfe_LDFLAGS = $(all_libraries) $(KDE_RPATH)

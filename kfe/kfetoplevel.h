@@ -13,6 +13,7 @@
 #include "arealistwidget.h"
 #include "msglistwidget.h"
 #include "msgwidget.h"
+#include "ksmapi.h"
 
 
 class KkfeTopLevel : public KTMainWindow
@@ -21,6 +22,7 @@ class KkfeTopLevel : public KTMainWindow
 
 public:
     KkfeTopLevel();
+    ~KkfeTopLevel();
 
 protected:
     void setupMenuBar();
@@ -31,15 +33,20 @@ private slots:
     // menu slots
     void cmFileQuit();
 
-    void cmViewAreas();
-    void cmViewMessages();
-    void cmViewStatusbar();
-    void cmViewToolbar();
+    void cmAreaFirst();
+    void cmAreaNext();
+    void cmAreaPrev();
+    void cmAreaLast();
 
-
+    void cmMessageFirst();
+    void cmMessageNext();
+    void cmMessagePrev();
+    void cmMessageLast();
+    
     // misc slots
-    void cmRescanMessages(f_area*);
-
+    void cmUpdateAreaList();
+    void cmUpdateMsgList(int);
+    void cmUpdateMsg(int);
 
 private:
 
@@ -53,19 +60,16 @@ private:
     msgListWidget *mList;
     msgWidget *msg;
 
-    QPopupMenu *mFile, *mView, *mMessage, *mOptions, *mHelp;
-
-    int contentsID, aboutID, aboutKDEID, quitID;
-    int ID_NEW, ID_OPEN, ID_HELP;
+    QPopupMenu *mFile, *mArea, *mMessage, *mOptions, *mHelp;
 
     int ID_FILE_QUIT;
-    int ID_VIEW_AREALIST, ID_VIEW_MSGLIST, ID_VIEW_STATUSBAR, ID_VIEW_TOOLBAR;
-    int ID_MESSAGE_NEW, ID_MESSAGE_NEXT, ID_MESSAGE_PREV, ID_MESSAGE_SELECT;;
+    int ID_AREA_RESCAN, ID_AREA_FIRST, ID_AREA_NEXT, ID_AREA_PREV, ID_AREA_LAST, ID_AREA_UNREAD;
+    int ID_MESSAGE_NEW, ID_MESSAGE_FIRST, ID_MESSAGE_NEXT, ID_MESSAGE_PREV, ID_MESSAGE_LAST, ID_MESSAGE_SELECT;
     int ID_HELP_CONTENTS, ID_HELP_ABOUT_KFE, ID_ABOUT_KDE;
     
     bool showArealist, showMsglist, showStatusbar, showToolbar;
 
-    struct _minf m;
+    Ksmapi* smapi;
 
     //    KDNDDropZone * dropZone;
 };

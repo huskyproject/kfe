@@ -62,18 +62,18 @@ AC_CHECK_HEADER(msgapi.h, ,
 AC_MSG_ERROR([msgapi.h for smapi not found])
 ])
 
-AC_CHECK_HEADERS(typesize.h common.h, ,
-[echo "copy typesize.h from fidoconfig src dir to /usr/include"
-echo "or /usr/local/include"
-AC_MSG_ERROR([typesize.h for fidoconfig not found])
-])
+dnl AC_CHECK_HEADERS(typesize.h common.h, ,
+dnl [echo "copy typesize.h from fidoconfig src dir to /usr/include"
+dnl echo "or /usr/local/include"
+dnl AC_MSG_ERROR([typesize.h for fidoconfig not found])
+dnl ])
 
 AC_CHECK_LIB(smapilnx, SquishOpenArea, ,
 [AC_MSG_ERROR([libsmapilnx not found])
 ])
 
 AC_CHECK_LIB(theBackYard, PrettyGirls, echo "well done",
-[AC_MSG_WARN([yee-ha, too bad :-(])
+[AC_MSG_WARN([yee-ha, too bad - no girls :-(])
 ])
 
 AC_CHECK_LIB(fidoconfig, existAddr, , 
