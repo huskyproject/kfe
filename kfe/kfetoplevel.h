@@ -2,13 +2,14 @@
 #define _TOPLEVEL_H_
 
 #include <kapp.h>
-#include <ktopwidget.h>
+#include <ktmainwindow.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <ktoolbar.h>
 #include <qpopmenu.h>
 #include <qaccel.h>
 #include <knewpanner.h>
+#include <kconfig.h>
 
 #include "arealistwidget.h"
 #include "msglistwidget.h"
@@ -48,8 +49,13 @@ private slots:
     void cmUpdateMsgList(int);
     void cmUpdateMsg(int);
 
-private:
+    //misc
+    void readConfig();
+    void writeConfig();
 
+private:
+    KConfig* config;
+    
     KMenuBar *menubar;
     KStatusBar *statusbar;
     KToolBar *toolbar;
@@ -71,6 +77,11 @@ private:
 
     Ksmapi* smapi;
 
-    //    KDNDDropZone * dropZone;
+    // Config related
+    int widgetwidth;
+    int widgetheight;
+    int vpannerseperatorpos;
+    int hpannerseperatorpos;
+
 };
 #endif

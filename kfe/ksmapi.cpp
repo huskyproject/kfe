@@ -37,12 +37,8 @@ Ksmapi::~Ksmapi()
 
 void Ksmapi::rescanAreas()
 {
-    printf("Ksmapi::rescanAreas()\n");
-    // *** make this scan all areas from fidoconfig
-
     // *** Check, if arealist is empty, before clearing it?
     // Doesn't seem to make much sense
-    
     areaList.clear();
 
     // *** Check here also for non EchoAreas.
@@ -51,22 +47,17 @@ void Ksmapi::rescanAreas()
     s_area* fidoconfigarea;
 
     for (unsigned int i = 0; i < fidoconfig->echoAreaCount; i++) {
-        debug("Echo: %s", fidoconfig->echoAreas[i].areaName);
-        debug("Nr: %d", i);
-
-        // *** do this only, if it are no passthrough areas
-        debug ("is: %d", fidoconfig->echoAreas[i].msgbType);
-        if (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SQUISH) {
-            debug("passth");
+        // ***       debug("Echo: %s", fidoconfig->echoAreas[i].group);
+        // do this only, if it are no passthrough areas
+        if (fidoconfig->echoAreas[i].msgbType != MSGTYPE_PASSTHROUGH) {
+            newArea = new smapiArea(
+                                    fidoconfig->echoAreas[i].areaName,
+                                    fidoconfig->echoAreas[i].fileName,
+                                    smapiArea::NORMAL,
+                                    (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SDM?smapiArea::SDM:smapiArea::SQUISH) | smapiArea::ECHO
+                                   );
+            areaList.append(newArea);
         }
-            
-        newArea = new smapiArea(
-                                fidoconfig->echoAreas[i].areaName,
-                                fidoconfig->echoAreas[i].fileName,
-                                smapiArea::NORMAL,
-                                (fidoconfig->echoAreas[i].msgbType == MSGTYPE_SDM?smapiArea::SDM:smapiArea::SQUISH) | smapiArea::ECHO
-                               );
-        areaList.append(newArea);
     }
 }
 
@@ -112,6 +103,6 @@ void Ksmapi::rescanMsgs()
 {
     printf("Ksmapi::rescanMsgs()\n");
     getCurArea()->rescanMsgs();
-    printf("\Ksmapi::rescanMsgs()\n");
+    printf("Ksmapi::rescanMsgs()\n");
 }
 

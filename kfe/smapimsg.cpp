@@ -24,7 +24,6 @@ smapiMsg::smapiMsg(HAREA newarea, word mode, dword msgn)
     
 smapiMsg::~smapiMsg()
 {
-    printf("smapiMsg::~smapiMsg()\n");
     MsgCloseMsg(hmsg);
 }
 

@@ -27,7 +27,6 @@ smapiArea::smapiArea(char* newname, char* newpath, word mode, word type)
 
 smapiArea::~smapiArea()
 {
-    printf("smapiArea::~smapiArea()\n");
     smapiMsg* msg;
     for (msg = msgList.first(); msg != 0; msg = msgList.next()) {
         printf ("closing Message");
@@ -109,6 +108,7 @@ smapiMsg* smapiArea::getCurMsg()
 
 smapiMsg* smapiArea::setCurMsg(int newMsgNum)
 {
+    
     return msgList.at(newMsgNum);
     
 }

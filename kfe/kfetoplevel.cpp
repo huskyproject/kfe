@@ -7,18 +7,19 @@
 KkfeTopLevel::KkfeTopLevel()
     : KTMainWindow()
 {
-    smapi = new Ksmapi(2); // *** make the def_zone configurable
-
     setMinimumSize(500, 350);
+    readConfig();
+
+    resize(widgetwidth, widgetheight);
 
     hPanner = new KNewPanner(this, "HoizontalPanner",
                              KNewPanner::Horizontal, KNewPanner::Absolute);
-    hPanner->resize(size());
+
+    hPanner->resize(widgetwidth, widgetheight);
     setView(hPanner);
 
     vPanner = new KNewPanner(hPanner, "VerticalPanner",
                              KNewPanner::Vertical);
-
 
     mList = new msgListWidget(hPanner);
     connect(mList, SIGNAL(newSelection(int)),
@@ -29,25 +30,28 @@ KkfeTopLevel::KkfeTopLevel()
             this, SLOT(cmUpdateMsgList(int)));
 
     msg = new msgWidget(vPanner);
-//    connect(mList, SIGNAL(updateMsg()),
-//            msg, SLOT(updateMsg()));
-
+    //    connect(mList, SIGNAL(updateMsg()),
+    //            msg, SLOT(updateMsg()));
 
     hPanner->activate(mList, vPanner);
     vPanner->activate(aList, msg);
 
-    hPanner->setAbsSeperatorPos(100);
-    vPanner->setAbsSeperatorPos(100);
+    debug("hPanner%d", hpannerseperatorpos);
+    debug("vPanner%d", hpannerseperatorpos);
+
+    hPanner->setAbsSeperatorPos(hpannerseperatorpos);
+    vPanner->setAbsSeperatorPos(vpannerseperatorpos);
 
     setupMenuBar();
     setupStatusBar();
     setupToolBar();
 
 
+
     // get this from setup laten
-//    smapi->setCurArea(0);
+    smapi = new Ksmapi(2); // *** make the def_zone configurable
+    //    smapi->setCurArea(0);
     cmUpdateAreaList();
-//    cmUpdateMsgList(0);
 }
 
 
@@ -69,7 +73,7 @@ void KkfeTopLevel::setupMenuBar()
     mFile = new QPopupMenu();
     
     ID_FILE_QUIT = mFile->insertItem(i18n("&Quit"));
-    mFile->connectItem(ID_FILE_QUIT, kapp, SLOT(quit()));
+    mFile->connectItem(ID_FILE_QUIT, this, SLOT(cmFileQuit()));
 
     menubar->insertItem(i18n("&File"), mFile);
 
@@ -140,7 +144,9 @@ void KkfeTopLevel::setupStatusBar()
 
 void KkfeTopLevel::cmFileQuit()
 {
+    writeConfig();
 
+    kapp->quit();
 }
 
 
@@ -234,5 +240,34 @@ void KkfeTopLevel::cmUpdateMsg(int newitem)
     char stattext[25];
     sprintf(stattext, "Msg x of %d (x left)", smapi->getCurArea()->getMsgNum());
     statusbar->changeItem(stattext, 1);
-
 }
+
+
+void KkfeTopLevel::readConfig()
+{
+    config = kapp->getConfig();
+
+    config->setGroup("general");
+
+    widgetwidth = config->readNumEntry("Width", 500);
+    widgetheight = config->readNumEntry("Height", 350);
+    vpannerseperatorpos = config->readNumEntry("vPannerSeperator", 15);
+    hpannerseperatorpos = config->readNumEntry("hPannerSeperator", 100);
+}
+
+
+void KkfeTopLevel::writeConfig()
+{
+    config = kapp->getConfig();
+
+    config->setGroup("general");
+
+    config->writeEntry("Width", this->width());
+    config->writeEntry("Height", this->height());
+
+    config->writeEntry("hPannerSeperator", hPanner->seperatorPos());
+    config->writeEntry("vPannerSeperator", vPanner->seperatorPos());
+
+    config->sync();
+}
+    

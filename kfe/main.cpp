@@ -1,17 +1,15 @@
 #include <kapp.h>
-#include <ktopwidget.h>
-
 #include "kfetoplevel.h"
 
 
 int main(int argc, char *argv[])
 {
-  KApplication app(argc, argv);
+  KApplication* app = new KApplication(argc, argv);
 
   KkfeTopLevel *toplevel=0;
 
-  if (app.isRestored())
-    RESTORE(KkfeTopLevel)
+  if (app->isRestored())
+    RESTORE(KkfeTopLevel())
   else {
     // no session management: just create one window
     toplevel = new KkfeTopLevel();
@@ -19,5 +17,5 @@ int main(int argc, char *argv[])
   }
   toplevel->show();
 
-  return app.exec();
+  return app->exec();
 }
