@@ -1,7 +1,7 @@
 /****************************************************************************
 ** areaListWidget meta object code from reading C++ file 'arealistwidget.h'
 **
-** Created: Thu Dec 24 20:14:48 1998
+** Created: Fri Dec 25 09:15:09 1998
 **      by: The Qt Meta Object Compiler ($Revision$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -51,13 +51,18 @@ void areaListWidget::staticMetaObject()
     KTabListBox::initMetaObject();
 #endif
 
+    typedef void(areaListWidget::*m1_t0)(int);
+    m1_t0 v1_0 = &areaListWidget::areaSelected;
+    QMetaData *slot_tbl = new QMetaData[1];
+    slot_tbl[0].name = "areaSelected(int)";
+    slot_tbl[0].ptr = *((QMember*)&v1_0);
     typedef void(areaListWidget::*m2_t0)(f_area*);
     m2_t0 v2_0 = &areaListWidget::newSelection;
     QMetaData *signal_tbl = new QMetaData[1];
     signal_tbl[0].name = "newSelection(f_area*)";
     signal_tbl[0].ptr = *((QMember*)&v2_0);
     metaObj = new QMetaObject( "areaListWidget", "KTabListBox",
-	0, 0,
+	slot_tbl, 1,
 	signal_tbl, 1 );
 }
 

@@ -27,6 +27,7 @@ areaListWidget::areaListWidget(QWidget *parent, const char *name)
     setColumn(1, "new", 40);
     setColumn(2, "total", 40);
 
+    connect(this, SIGNAL(selected(int, int)), this, SLOT(areaSelected(int)));
     // insert Areas in ListBox
     bool first = TRUE;
     
@@ -42,6 +43,7 @@ areaListWidget::areaListWidget(QWidget *parent, const char *name)
             first = FALSE;
         }
     }
+    
     resize(size());
     setAutoUpdate(TRUE);
 }
@@ -53,5 +55,9 @@ areaListWidget::~areaListWidget()
 }
 
 
-//    f_area* sel = arealist.at(item);
-//    emit newSelection(sel);
+void areaListWidget::areaSelected(int item)
+{
+    f_area* sel = arealist.at(item);
+    emit newSelection(sel);
+    printf("new selection\n");
+}

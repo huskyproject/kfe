@@ -27,13 +27,15 @@ KkfeTopLevel::KkfeTopLevel()
     vPanner = new KNewPanner(hPanner, "VerticalPanner",
                              KNewPanner::Vertical);
 
+    msg = new msgWidget(vPanner, "test");
+
     mList = new msgListWidget(hPanner);
-    connect(mList, SIGNAL(newSelection(f_message*)), this, SLOT(slotShowMessage(f_message*)));
+    connect(mList, SIGNAL(newSelection(f_message*)), msg, SLOT(showMsg(f_message*)));
 
     aList = new areaListWidget(vPanner, "areaList");
     connect(aList, SIGNAL(newSelection(f_area*)), this, SLOT(cmRescanMessages(f_area*)));
 
-    msg = new msgWidget(vPanner, "test");
+    
 
     hPanner->activate(mList, vPanner);
     vPanner->activate(aList, msg);

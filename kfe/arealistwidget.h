@@ -23,6 +23,9 @@ public:
 
 signals:
     void newSelection(f_area*);
+
+private slots:
+    void areaSelected(int);
     
 protected:
     QList<f_area> arealist;

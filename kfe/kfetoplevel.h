@@ -40,6 +40,7 @@ private slots:
     // misc slots
     void cmRescanMessages(f_area*);
 
+
 private:
 
     KMenuBar *menubar;

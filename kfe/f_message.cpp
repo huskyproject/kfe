@@ -81,24 +81,20 @@ QString f_message::getBody()
     char* minfo;
     char* bodycontent;
 
-//    bodycontent = (char*) malloc(32768);
+    bodycontent = (char*) malloc(32768);
 
     if (hmsg != NULL) {
     
         //        make it faster
-        //dword MsgReadMsg(HMSG hmsg, dword ofs, dword bytes,
-        // byte *text, dword cbyt, byte *ctxt);
-        //        MsgReadMsg(hmsg, &xmsg, 0L, 32768, bodycontent, 0, NULL);
-;//        MsgReadMsg(hmsg, &xmsg, 0L, 0L, NULL, 0, NULL);
+        //        dword MsgReadMsg(HMSG hmsg, dword ofs, dword bytes, byte *text, dword cbyt, byte *ctxt);
+        
+        MsgReadMsg(hmsg, &xmsg, 0L, 32768, bodycontent, 0, NULL);
+        //        MsgReadMsg(hmsg, &xmsg, 0L, 0L, NULL, 0, NULL);
         // find something nicer, when I have time
-//        normalize(bodycontent, 0);
-//        body = (const char *)bodycontent;
+        normalize(bodycontent, 0);
+        body = (const char *)bodycontent;
     } else {
         printf("Could not open %s", "echo->filename");
     }
     return body;
 }
-
-
-
-

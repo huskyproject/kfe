@@ -43,6 +43,7 @@ msgListWidget::msgListWidget(QWidget *parent)
     setColumn(4, "written", 40);
     setColumn(5, "received", 40);
 
+    connect(this, SIGNAL(selected(int, int)), this, SLOT(msgSelected(int)));
     resize(size());
 }
 
@@ -70,13 +71,14 @@ void msgListWidget::rescan(f_area *area)
 
         printf("high: %d", highestMsg);
         clear();
+        msglist.clear();
         f_message* foo;
         QString hdr(256);
         while (i <= highestMsg) {
             foo = new f_message(area, i++);
-//            msglist.append(foo);
-//            hdr.sprintf("%d\n%s\n%s\n%s", i, (const char*)foo->getFrom(), (const char*)foo->getTo(), (const char*)foo->getSubject());
-//            insertItem(hdr);
+            msglist.append(foo);
+            hdr.sprintf("%d\n%s\n%s\n%s", i, (const char*)foo->getFrom(), (const char*)foo->getTo(), (const char*)foo->getSubject());
+            insertItem(hdr);
             prog->advance(1);
         }
         prog->hide();
@@ -99,7 +101,10 @@ f_message* msgListWidget::getPrev()
     return msglist.prev();
 }
 
-
-//    f_message* sel = msglist.at(item);
-//    emit newSelection(sel);
+void msgListWidget::msgSelected(int item)
+{
+    f_message* sel = msglist.at(item);
+    emit newSelection(sel);
+    printf("Show message\n");
+}
 

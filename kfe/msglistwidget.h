@@ -41,6 +41,9 @@ public:
 signals:
     void newSelection(f_message *);
 
+private slots:
+    void msgSelected(int item);
+    
 protected:
     f_area* area;
     QList<f_message> msglist;

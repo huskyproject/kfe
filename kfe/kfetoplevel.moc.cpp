@@ -1,7 +1,7 @@
 /****************************************************************************
 ** KkfeTopLevel meta object code from reading C++ file 'kfetoplevel.h'
 **
-** Created: Thu Dec 24 20:20:22 1998
+** Created: Fri Dec 25 09:42:15 1998
 **      by: The Qt Meta Object Compiler ($Revision$)
 **
 ** WARNING! All changes made in this file will be lost!
