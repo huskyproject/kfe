@@ -1,0 +1,28 @@
+ChangeLog for kfe - the KDE Fido Editor
+
+-----------------------------------------------------------
++ New Feature
+- Modification
+! Bug Fix
+* Just babel of mine
+-----------------------------------------------------------
+99.01.15:
+-	After a time of redesign, I put up again with the changelog
+	I won't put all changes in here, as there are to many changes,
+        and the classes are not yet documented, so, who cares?
+*	Right now, the new classe work, next big step is the compose window,
+	but I feel a litte overdone. I startet 'bout 11 in the morning, now it's
+        21:25. So, I will get a good bottle of wine now, and make my mind free by reading
+        some mail. (Maybe last day using Golded?)
+        Well, after that, slashdot will be a good starting point, and after that, I will
+        take a couple of hours sleep.
+        BTW, todays thank-you to Aldi-Kaffe, Holsten Pils, The Verve, Onkelz, The King.
+        Think I must start tonite with Falco, just for the memory.
+
+99.01.09:
+!	Finished the rewrite of some brain busted conceps.
+*	Todays thank-you's go to Melitta, Warsteiner & NOFX
+
+98.12.27:
++	I startet this changelog, after I released an early
+       	try version to the cvs 98.12.25. Merry Xmas.
