@@ -18,7 +18,7 @@
 #include <kconfig.h>
 
 extern "C" {
-#include <fidoconfig/fidoconfig.h>
+#include <fidoconf/fidoconf.h>
 }
 
 #include "smapiarea.h"
